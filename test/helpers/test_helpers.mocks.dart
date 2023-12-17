@@ -6,7 +6,9 @@
 import 'dart:async' as _i7;
 import 'dart:ui' as _i8;
 
+import 'package:campus_ease/services/api_calls_service.dart' as _i11;
 import 'package:campus_ease/services/login_service.dart' as _i9;
+import 'package:campus_ease/services/registration_service.dart' as _i10;
 import 'package:flutter/material.dart' as _i6;
 import 'package:logger/src/logger.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -829,3 +831,43 @@ class MockLoginService extends _i1.Mock implements _i9.LoginService {
         )),
       ) as _i7.Future<_i2.AuthResponse>);
 }
+
+/// A class which mocks [RegistrationService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockRegistrationService extends _i1.Mock
+    implements _i10.RegistrationService {
+  @override
+  void upsertRegistrationDetails({
+    required String? firstName,
+    required String? lastName,
+    required String? collegeEmail,
+    required String? universityRollNumber,
+    required String? collegeRegistrationNumber,
+    required String? sgpa,
+    required String? percentage,
+    required String? branch,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #upsertRegistrationDetails,
+          [],
+          {
+            #firstName: firstName,
+            #lastName: lastName,
+            #collegeEmail: collegeEmail,
+            #universityRollNumber: universityRollNumber,
+            #collegeRegistrationNumber: collegeRegistrationNumber,
+            #sgpa: sgpa,
+            #percentage: percentage,
+            #branch: branch,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [ApiCallsService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockApiCallsService extends _i1.Mock implements _i11.ApiCallsService {}

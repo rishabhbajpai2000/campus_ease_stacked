@@ -30,7 +30,7 @@ class LoginService {
       );
       Fluttertoast.showToast(
           msg: "Account created Sucessfully", fontSize: 16.0);
-      _navigationService.navigateToStartupView();
+      _navigationService.navigateToRegistrationDetailsView();
       return res;
     } catch (e) {
       Fluttertoast.showToast(msg: "$e", fontSize: 16.0);

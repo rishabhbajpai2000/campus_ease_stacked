@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:campus_ease/ui/common/app_colors.dart';
-import 'package:campus_ease/ui/common/ui_helpers.dart';
 
 import 'home_viewmodel.dart';
 
@@ -18,6 +16,11 @@ class HomeView extends StackedView<HomeViewModel> {
       appBar: AppBar(
         title: Text("Campus Ease"),
         actions: [
+          IconButton(
+              onPressed: () {
+                viewModel.goToRegistration();
+              },
+              icon: Icon(Icons.app_registration)),
           IconButton(
               onPressed: () {
                 viewModel.logout();

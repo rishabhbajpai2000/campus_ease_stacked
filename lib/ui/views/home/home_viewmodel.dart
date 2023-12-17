@@ -1,6 +1,7 @@
 import 'package:campus_ease/app/app.bottomsheets.dart';
 import 'package:campus_ease/app/app.dialogs.dart';
 import 'package:campus_ease/app/app.locator.dart';
+import 'package:campus_ease/app/app.router.dart';
 import 'package:campus_ease/services/login_service.dart';
 import 'package:campus_ease/ui/common/app_strings.dart';
 import 'package:campus_ease/ui/views/all_jobs/all_jobs_view.dart';
@@ -11,11 +12,8 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class HomeViewModel extends BaseViewModel {
-  List<Widget> views = [
-    AllJobsView(), 
-    AnnouncementsView(), 
-    ProfileView()
-  ];
+  final _navigationService = locator<NavigationService>();
+  List<Widget> views = [AllJobsView(), AnnouncementsView(), ProfileView()];
   int currentViewIndex = 0;
   final _dialogService = locator<DialogService>();
   final _bottomSheetService = locator<BottomSheetService>();
@@ -48,10 +46,15 @@ class HomeViewModel extends BaseViewModel {
 
   logout() async {
     await _loginService.logout();
+    _navigationService.clearStackAndShow(Routes.initialWelcomScreenView);
   }
 
   void onDestinationSelected(int index) {
     currentViewIndex = index;
     rebuildUi();
+  }
+
+  void goToRegistration() {
+    _navigationService.navigateTo(Routes.registrationDetailsView);
   }
 }

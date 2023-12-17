@@ -3,6 +3,8 @@ import 'package:mockito/mockito.dart';
 import 'package:campus_ease/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:campus_ease/services/login_service.dart';
+import 'package:campus_ease/services/registration_service.dart';
+import 'package:campus_ease/services/api_calls_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -12,6 +14,8 @@ import 'test_helpers.mocks.dart';
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<LoginService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<RegistrationService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<ApiCallsService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -19,6 +23,8 @@ void registerServices() {
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   getAndRegisterLoginService();
+  getAndRegisterRegistrationService();
+  getAndRegisterApiCallsService();
 // @stacked-mock-register
 }
 
@@ -76,6 +82,20 @@ MockLoginService getAndRegisterLoginService() {
   _removeRegistrationIfExists<LoginService>();
   final service = MockLoginService();
   locator.registerSingleton<LoginService>(service);
+  return service;
+}
+
+MockRegistrationService getAndRegisterRegistrationService() {
+  _removeRegistrationIfExists<RegistrationService>();
+  final service = MockRegistrationService();
+  locator.registerSingleton<RegistrationService>(service);
+  return service;
+}
+
+MockApiCallsService getAndRegisterApiCallsService() {
+  _removeRegistrationIfExists<ApiCallsService>();
+  final service = MockApiCallsService();
+  locator.registerSingleton<ApiCallsService>(service);
   return service;
 }
 // @stacked-mock-create
