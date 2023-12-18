@@ -7,6 +7,7 @@ import 'dart:async' as _i7;
 import 'dart:ui' as _i8;
 
 import 'package:campus_ease/services/api_calls_service.dart' as _i11;
+import 'package:campus_ease/services/jobs_service.dart' as _i12;
 import 'package:campus_ease/services/login_service.dart' as _i9;
 import 'package:campus_ease/services/registration_service.dart' as _i10;
 import 'package:flutter/material.dart' as _i6;
@@ -52,6 +53,16 @@ class _FakeLogger_1 extends _i1.SmartFake implements _i3.Logger {
 
 class _FakeAuthResponse_2 extends _i1.SmartFake implements _i2.AuthResponse {
   _FakeAuthResponse_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeUser_3 extends _i1.SmartFake implements _i2.User {
+  _FakeUser_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -838,7 +849,7 @@ class MockLoginService extends _i1.Mock implements _i9.LoginService {
 class MockRegistrationService extends _i1.Mock
     implements _i10.RegistrationService {
   @override
-  void upsertRegistrationDetails({
+  _i7.Future<void> upsertRegistrationDetails({
     required String? firstName,
     required String? lastName,
     required String? collegeEmail,
@@ -848,7 +859,7 @@ class MockRegistrationService extends _i1.Mock
     required String? percentage,
     required String? branch,
   }) =>
-      super.noSuchMethod(
+      (super.noSuchMethod(
         Invocation.method(
           #upsertRegistrationDetails,
           [],
@@ -863,11 +874,82 @@ class MockRegistrationService extends _i1.Mock
             #branch: branch,
           },
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  String getBranchCode(String? branch) => (super.noSuchMethod(
+        Invocation.method(
+          #getBranchCode,
+          [branch],
+        ),
+        returnValue: _i5.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getBranchCode,
+            [branch],
+          ),
+        ),
+        returnValueForMissingStub: _i5.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getBranchCode,
+            [branch],
+          ),
+        ),
+      ) as String);
 }
 
 /// A class which mocks [ApiCallsService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockApiCallsService extends _i1.Mock implements _i11.ApiCallsService {}
+class MockApiCallsService extends _i1.Mock implements _i11.ApiCallsService {
+  @override
+  _i2.User get user => (super.noSuchMethod(
+        Invocation.getter(#user),
+        returnValue: _FakeUser_3(
+          this,
+          Invocation.getter(#user),
+        ),
+        returnValueForMissingStub: _FakeUser_3(
+          this,
+          Invocation.getter(#user),
+        ),
+      ) as _i2.User);
+
+  @override
+  _i7.Future<int> upsertRegistrationDetails({
+    required String? firstName,
+    required String? lastName,
+    required String? collegeEmail,
+    required String? universityRollNumber,
+    required String? collegeRegistrationNumber,
+    required String? sgpa,
+    required String? percentage,
+    required String? branch,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #upsertRegistrationDetails,
+          [],
+          {
+            #firstName: firstName,
+            #lastName: lastName,
+            #collegeEmail: collegeEmail,
+            #universityRollNumber: universityRollNumber,
+            #collegeRegistrationNumber: collegeRegistrationNumber,
+            #sgpa: sgpa,
+            #percentage: percentage,
+            #branch: branch,
+          },
+        ),
+        returnValue: _i7.Future<int>.value(0),
+        returnValueForMissingStub: _i7.Future<int>.value(0),
+      ) as _i7.Future<int>);
+}
+
+/// A class which mocks [JobsService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockJobsService extends _i1.Mock implements _i12.JobsService {}

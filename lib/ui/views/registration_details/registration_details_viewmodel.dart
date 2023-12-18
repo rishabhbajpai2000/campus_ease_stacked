@@ -18,7 +18,7 @@ class RegistrationDetailsViewModel extends FormViewModel {
     rebuildUi();
   }
 
-  Future<void> submit() async{
+  Future<void> submit() async {
     if (formKey.currentState!.validate()) {
       // branch check is required because it is not a form field
       if (selectedBranch == null) {
@@ -35,7 +35,7 @@ class RegistrationDetailsViewModel extends FormViewModel {
                     Percentage: $percentageValue
                     Branch: $selectedBranch 
                 ''');
-     await _registrationService.upsertRegistrationDetails(
+      await _registrationService.upsertRegistrationDetails(
         firstName: firstNameValue!,
         lastName: lastNameValue!,
         collegeEmail: collegeEmailValue!,

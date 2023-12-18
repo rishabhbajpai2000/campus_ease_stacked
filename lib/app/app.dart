@@ -14,6 +14,7 @@ import 'package:campus_ease/ui/views/profile/profile_view.dart';
 import 'package:campus_ease/ui/views/registration_details/registration_details_view.dart';
 import 'package:campus_ease/services/registration_service.dart';
 import 'package:campus_ease/services/api_calls_service.dart';
+import 'package:campus_ease/services/jobs_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -37,6 +38,7 @@ import 'package:campus_ease/services/api_calls_service.dart';
     LazySingleton(classType: LoginService),
     LazySingleton(classType: RegistrationService),
     LazySingleton(classType: ApiCallsService),
+    LazySingleton(classType: JobsService),
 // @stacked-service
   ],
   bottomsheets: [

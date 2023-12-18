@@ -61,4 +61,8 @@ class LoginService {
     await supabase.auth.signOut();
     _navigationService.clearStackAndShow(Routes.homeView);
   }
+
+  bool isRegistered() {
+    return true; //TODO: implement this function. 
+  }
 }

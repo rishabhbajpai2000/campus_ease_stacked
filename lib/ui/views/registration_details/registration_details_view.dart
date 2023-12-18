@@ -39,6 +39,7 @@ class RegistrationDetailsView extends StackedView<RegistrationDetailsViewModel>
   ) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Registration Details"),
         actions: [
           TextButton(
@@ -152,8 +153,8 @@ class RegistrationDetailsView extends StackedView<RegistrationDetailsViewModel>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () async{
-                       await viewModel.submit();
+                      onTap: () async {
+                        await viewModel.submit();
                       },
                       child: Container(
                         decoration: BoxDecoration(

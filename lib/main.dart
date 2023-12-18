@@ -10,9 +10,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+
   await Supabase.initialize(
     url: 'https://wdwtkrvlzdvakzcmoukf.supabase.co',
     anonKey:

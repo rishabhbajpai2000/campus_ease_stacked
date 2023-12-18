@@ -60,6 +60,8 @@ class StartupView extends StackedView<StartupViewModel> {
       StartupViewModel();
 
   @override
-  void onViewModelReady(StartupViewModel viewModel) => SchedulerBinding.instance
+  void onViewModelReady(StartupViewModel viewModel) {
+    SchedulerBinding.instance
       .addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
+  }
 }

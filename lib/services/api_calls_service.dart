@@ -7,7 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ApiCallsService {
   final _logger = getLogger("ApiCallsService");
-  final User user = Supabase.instance.client.auth.currentUser!;
+
   Future<int> upsertRegistrationDetails(
       {required String firstName,
       required String lastName,
@@ -16,17 +16,18 @@ class ApiCallsService {
       required String collegeRegistrationNumber,
       required String sgpa,
       required String percentage,
-      required String branch}) async {
+      required String branch,
+      required String userId}) async {
     // making an api call to fill the data to the server.
     Map<String, dynamic> body = {
-      "userId": user.id,
+      "userId": userId,
       "firstName": firstName,
       "lastName": lastName,
       "rollNumber": universityRollNumber,
       "collegeAdmissionNumber": collegeRegistrationNumber,
       "email": collegeEmail,
       "branch": branch,
-      "SGPA": sgpa,
+      "sgpa": sgpa,
       "percentage": percentage,
       // "tokenID": Null // TODO: Implment oneSignal token ID
     };
@@ -47,5 +48,41 @@ class ApiCallsService {
     }
 
     return response.statusCode;
+  }
+
+  Future<bool> isRegistered({required String userId}) async {
+    final Response response = await http.get(
+      Uri.parse("https://campus-ease.onrender.com/student/$userId"),
+    );
+
+    if (response.statusCode == 200) {
+      if (response.body == "User exists") {
+        _logger.i("User exists");
+        return true;
+      } else {
+        _logger.i("User does not exist");
+        return false;
+      }
+    } else {
+      _logger.e("Error checking registration details from the server");
+      _logger.e(response.body);
+    }
+    return false;
+  }
+
+  Future<String> getJobs({required String userId}) async{
+    final Response response = await http.get(
+      Uri.parse("https://campus-ease.onrender.com/jobs/$userId"),
+    );
+
+    if (response.statusCode == 200) {
+      _logger.i("Jobs successfully fetched from the server");
+      _logger.i(response.body);
+      return response.body;
+    } else {
+      _logger.e("Error fetching jobs from the server");
+      _logger.e(response.body);
+      return "Error";
+    }
   }
 }
