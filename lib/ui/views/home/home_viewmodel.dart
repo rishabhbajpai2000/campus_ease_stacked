@@ -46,7 +46,6 @@ class HomeViewModel extends BaseViewModel {
 
   logout() async {
     await _loginService.logout();
-    _navigationService.clearStackAndShow(Routes.initialWelcomScreenView);
   }
 
   void onDestinationSelected(int index) {
