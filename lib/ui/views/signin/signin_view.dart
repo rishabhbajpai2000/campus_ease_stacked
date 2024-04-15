@@ -1,3 +1,7 @@
+import 'package:campus_ease/links/asset_links.dart';
+import 'package:campus_ease/ui/common/ui_helpers.dart';
+import 'package:campus_ease/ui/common/widgets/CircularButton.dart';
+import 'package:campus_ease/ui/common/widgets/InputTextField.dart';
 import 'package:campus_ease/ui/views/signin/signin_view.form.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -7,9 +11,9 @@ import 'signin_viewmodel.dart';
 
 @FormView(
   fields: [
-    FormTextField(name: 'email', validator: SignUpValidators.emailValidator),
+    FormTextField(name: 'email', validator: SignInValidators.emailValidator),
     FormTextField(
-        name: 'password', validator: SignUpValidators.passwordValidator),
+        name: 'password', validator: SignInValidators.passwordValidator),
   ],
 )
 class SigninView extends StackedView<SigninViewModel> with $SigninView {
@@ -21,74 +25,100 @@ class SigninView extends StackedView<SigninViewModel> with $SigninView {
     SigninViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: Form(
-              key: viewModel.formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Login to your Account",
-                    style: TextStyle(fontSize: 30),
-                  ),
-                  SizedBox(height: 20),
-                  Text("Email", style: TextStyle(fontSize: 20)),
-                  SizedBox(height: 10),
-                  TextFormField(
-                    validator: SignUpValidators.emailValidator,
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color(0XFF92DCEC),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Form(
+            key: viewModel.formKey,
+            child: ListView(
+              children: [
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        viewModel.navigateBack();
+                      },
+                      child: const Icon(
+                        Icons.arrow_back,
+                        size: 30,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Text("Password", style: TextStyle(fontSize: 20)),
-                  SizedBox(height: 10),
-                  TextFormField(
-                    validator: SignUpValidators.passwordValidator,
-                    obscureText: true,
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color(0XFF92DCEC),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  Expanded(child: Container()),
-                  GestureDetector(
+                    Image.network(ABESLogoURL)
+                  ],
+                ),
+                const SizedBox(height: 40),
+                const Center(
+                  child: Text("Welcome back!",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+                const SizedBox(height: 20),
+                verticalSpaceLarge,
+                InputTextField(
+                  controller: emailController,
+                  hint: 'Email',
+                  formValidator: SignInValidators.emailValidator,
+                ),
+                const SizedBox(height: 20),
+                InputTextField(
+                  controller: passwordController,
+                  hint: 'Password',
+                  formValidator: SignInValidators.passwordValidator,
+                  obscureText: true,
+                ),
+                const SizedBox(height: 20),
+                CircularButton(
+                    text: viewModel.processing ? 'Processing...' : 'Login',
+                    onPressed: () async {
+                      await viewModel.logIn();
+                    }),
+                SizedBox(height: 20),
+                Center(
+                  child: GestureDetector(
                     onTap: () {
-                      viewModel.logIn();
+                      viewModel.forgotPassword();
                     },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Color(0XFF92DCEC)),
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Center(
-                            child: Text(
-                          "Login",
-                          style: TextStyle(fontSize: 15),
-                        )),
+                    child: const Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                        fontSize: 16,
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    viewModel.navigateToSignUpView();
+                  },
+                  child: const Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Don't have an account? ",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                        Text(
+                          "Sign up",
+                          style: TextStyle(
+                            color: Color(0xff0974f1),
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

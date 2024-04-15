@@ -1,3 +1,4 @@
+import 'package:campus_ease/links/asset_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:stacked/stacked.dart';
@@ -14,39 +15,47 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [0.0, 1.0],
-              colors: [
-                Color(0XFF174da3),
-                Color(0XFF418afb),
-              ],
-            ),
-          ),
-          child: const Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Campus Ease',
-                  style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white),
+    return Scaffold(
+      backgroundColor: const Color(0xffd2e8fe),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(40.0),
+          child: Stack(
+            children: [
+              Positioned(
+                  top: 0, right: 0, child: Image.network(ABESLogoTransparent)),
+              const Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'C a m p u s E a s e',
+                      style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.w900,
+                          color: Color(0xff565fc6)),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('YOUR PLACEMENT PARTNER',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ],
+                    ),
+                    verticalSpaceSmall,
+                    CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(
+                        Colors.black,
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 10),
-                Text("A complete solution to Placements",
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w300,
-                        color: Color(0XFF428AFD))),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -62,6 +71,6 @@ class StartupView extends StackedView<StartupViewModel> {
   @override
   void onViewModelReady(StartupViewModel viewModel) {
     SchedulerBinding.instance
-      .addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
+        .addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
   }
 }

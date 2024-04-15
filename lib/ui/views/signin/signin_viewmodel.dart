@@ -9,12 +9,13 @@ import 'package:stacked_services/stacked_services.dart';
 
 class SigninViewModel extends FormViewModel {
   final _loginService = LoginService();
+  bool processing = false;
 
   final formKey = GlobalKey<FormState>();
   final _logger = getLogger("SigninViewModel");
   final _navigationService = NavigationService();
 
-  void logIn() async {
+  Future<void> logIn() async {
     if (formKey.currentState!.validate()) {
       _logger.i("Form is valid");
       await _loginService.signInWithEmail(
@@ -25,9 +26,21 @@ class SigninViewModel extends FormViewModel {
           msg: "Please fill the details correctly", fontSize: 16.0);
     }
   }
+
+  void navigateToSignUpView() {
+    _navigationService.navigateToSignUpView();
+  }
+
+  void navigateBack() {
+    _navigationService.back();
+  }
+
+  void forgotPassword() {
+    Fluttertoast.showToast(msg: "Coming Soon!");
+  }
 }
 
-class SignUpValidators {
+class SignInValidators {
   static String? emailValidator(String? value) {
     if (value!.isEmpty) {
       return "Email cannot be empty";

@@ -12,7 +12,8 @@ class SignUpViewModel extends FormViewModel {
   final _logger = getLogger("SignUpViewModel");
   final _loginService = LoginService();
   final _navigationService = NavigationService();
-  void signUp() async {
+  bool processing = false;
+  Future<void> signUp() async {
     if (formKey.currentState!.validate()) {
       _logger.i("Form is valid");
       await _loginService.signUpNewUser(
@@ -22,6 +23,10 @@ class SignUpViewModel extends FormViewModel {
       Fluttertoast.showToast(
           msg: "Please fill the form correctly", fontSize: 16.0);
     }
+  }
+
+  void navigateBack() {
+    _navigationService.back();
   }
 }
 

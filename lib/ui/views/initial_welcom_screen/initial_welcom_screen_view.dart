@@ -1,7 +1,8 @@
+import 'package:campus_ease/ui/common/widgets/CircularButton.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-
 import 'initial_welcom_screen_viewmodel.dart';
+import 'package:campus_ease/links/asset_links.dart';
 
 class InitialWelcomScreenView
     extends StackedView<InitialWelcomScreenViewModel> {
@@ -14,60 +15,64 @@ class InitialWelcomScreenView
     Widget? child,
   ) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
-        child: Container(
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Welcome to \nCampus Ease",
-                  style: TextStyle(fontSize: 30),
-                ),
-                Expanded(child: Container()),
-                GestureDetector(
-                  onTap: () {
-                    viewModel.navigateToSignUpView();
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: const Color(0XFF92DCEC)),
-                    width: double.infinity,
-                    child: const Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Center(
-                          child: Text(
-                        "CREATE AN ACCOUNT",
-                        style: TextStyle(fontSize: 15),
-                      )),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "C a m p u s E a s e",
+                    style: TextStyle(
+                      color: Color(0XFF8e97fd),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () {
-                    viewModel.navigateToSignInView();
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: const Color(0XFF92DCEC)),
-                    width: double.infinity,
-                    child: const Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Center(
-                          child: Text(
-                        "LOGIN",
-                        style: TextStyle(fontSize: 15),
-                      )),
+                  Image.network(ABESLogoURL)
+                ],
+              ),
+              const SizedBox(height: 40),
+              Image.network(initialWelcomeScreenCenterImage),
+              const SizedBox(height: 40),
+              const Text("GET HIRED NOW",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 20),
+              const Text(
+                  "Streamlining your placement journey with placement study material , Job updates and alumni connects .",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16, color: Colors.grey)),
+              const SizedBox(height: 40),
+              CircularButton(
+                text: "SIGN UP",
+                onPressed: () {
+                  viewModel.navigateToSignUpView();
+                },
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "ALREADY HAVE AN ACCOUNT? ",
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      viewModel.navigateToSignInView();
+                    },
+                    child: const Text(
+                      "LOG IN",
+                      style: TextStyle(fontSize: 14, color: Color(0xff0974f1)),
                     ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

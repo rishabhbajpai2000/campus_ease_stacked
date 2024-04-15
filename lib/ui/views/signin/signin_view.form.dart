@@ -20,8 +20,8 @@ final Map<String, TextEditingController> _SigninViewTextEditingControllers = {};
 final Map<String, FocusNode> _SigninViewFocusNodes = {};
 
 final Map<String, String? Function(String?)?> _SigninViewTextValidations = {
-  EmailValueKey: SignUpValidators.emailValidator,
-  PasswordValueKey: SignUpValidators.passwordValidator,
+  EmailValueKey: SignInValidators.emailValidator,
+  PasswordValueKey: SignInValidators.passwordValidator,
 };
 
 mixin $SigninView {

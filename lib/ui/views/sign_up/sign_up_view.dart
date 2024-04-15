@@ -1,3 +1,6 @@
+import 'package:campus_ease/links/asset_links.dart';
+import 'package:campus_ease/ui/common/ui_helpers.dart';
+import 'package:campus_ease/ui/common/widgets/InputTextField.dart';
 import 'package:campus_ease/ui/views/sign_up/sign_up_view.form.dart';
 import 'package:campus_ease/ui/views/signin/signin_view.form.dart';
 import 'package:flutter/material.dart';
@@ -24,90 +27,71 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
     Widget? child,
   ) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Container(
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: Form(
-              key: viewModel.formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Create a new Account",
-                    style: TextStyle(fontSize: 30),
-                  ),
-                  SizedBox(height: 20),
-                  Text("Email", style: TextStyle(fontSize: 20)),
-                  SizedBox(height: 10),
-                  TextFormField(
-                    validator: SignUpValidators.emailValidator,
-                    keyboardType: TextInputType.emailAddress,
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color(0XFF92DCEC),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Form(
+            key: viewModel.formKey,
+            child: ListView(
+              children: [
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        viewModel.navigateBack();
+                      },
+                      child: const Icon(
+                        Icons.arrow_back,
+                        size: 30,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Text("Password", style: TextStyle(fontSize: 20)),
-                  SizedBox(height: 10),
-                  TextFormField(
-                    validator: SignUpValidators.passwordValidator,
-                    obscureText: true,
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color(0XFF92DCEC),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  // SizedBox(height: 20),
-                  // Text("Confirm Password", style: TextStyle(fontSize: 20)),
-                  // SizedBox(height: 10),
-                  // TextFormField(
-                  //   obscureText: true,
-                  //   controller: confirmPasswordController,
-                  //   decoration: InputDecoration(
-                  //     filled: true,
-                  //     fillColor: Color(0XFF92DCEC),
-                  //     border: OutlineInputBorder(
-                  //       borderSide: BorderSide.none,
-                  //       borderRadius: BorderRadius.circular(10),
-                  //     ),
-                  //   ),
-                  // ),
-                  Expanded(child: Container()),
-                  GestureDetector(
-                    onTap: () {
-                      viewModel.signUp();
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Color(0XFF92DCEC)),
+                    Image.network(ABESLogoURL)
+                  ],
+                ),
+                verticalSpaceLarge,
+                const Text("Create your account",
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    )),
+                verticalSpaceLarge,
+                InputTextField(
+                  controller: emailController,
+                  hint: "College Email Address",
+                  formValidator: SignUpValidators.emailValidator,
+                ),
+                const SizedBox(height: 20),
+                InputTextField(
+                  controller: passwordController,
+                  hint: "Password",
+                  formValidator: SignUpValidators.passwordValidator,
+                  obscureText: true,
+                ),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () async {
+                    await viewModel.signUp();
+                  },
+                  child: Container(
                       width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Center(
-                            child: Text(
-                          "SignUp",
-                          style: TextStyle(fontSize: 15),
-                        )),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: const Color(0xff0974f1),
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                    ),
-                  ),
-                ],
-              ),
+                      child: Center(
+                        child: viewModel.processing
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : const Text("Get Started",
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.white)),
+                      )),
+                ),
+              ],
             ),
           ),
         ),
