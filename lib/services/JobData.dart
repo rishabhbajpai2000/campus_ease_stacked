@@ -1,5 +1,5 @@
 import 'package:campus_ease/app/app.logger.dart';
-import 'package:campus_ease/services/Job.dart';
+import 'package:campus_ease/models/Job.dart';
 
 class JobData {
   final _logger = getLogger("JobData");

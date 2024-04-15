@@ -70,7 +70,7 @@ class ApiCallsService {
     return false;
   }
 
-  Future<String> getJobs({required String userId}) async{
+  Future<String> getJobs({required String userId}) async {
     final Response response = await http.get(
       Uri.parse("https://campus-ease.onrender.com/jobs/$userId"),
     );

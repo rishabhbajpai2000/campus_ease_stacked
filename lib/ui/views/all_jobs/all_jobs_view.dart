@@ -1,4 +1,4 @@
-import 'package:campus_ease/services/Job.dart';
+import 'package:campus_ease/models/Job.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:stacked/stacked.dart';
@@ -36,7 +36,12 @@ class AllJobsView extends StackedView<AllJobsViewModel> {
                       itemCount: viewModel.jobData!.unfilled.length,
                       itemBuilder: (context, index) {
                         Job job = viewModel.jobData!.unfilled[index];
-                        return jobCard(job);
+                        return jobCard(
+                          job: job,
+                          onTap: () {
+                            viewModel.navigateToJobDetails(job);
+                          },
+                        );
                       },
                     ),
             ),
@@ -58,7 +63,12 @@ class AllJobsView extends StackedView<AllJobsViewModel> {
                       itemCount: viewModel.jobData!.filled.length,
                       itemBuilder: (context, index) {
                         Job job = viewModel.jobData!.filled[index];
-                        return jobCard(job);
+                        return jobCard(
+                          job: job,
+                          onTap: () {
+                            viewModel.navigateToJobDetails(job);
+                          },
+                        );
                       },
                     ),
             ),
@@ -68,57 +78,61 @@ class AllJobsView extends StackedView<AllJobsViewModel> {
     );
   }
 
-  Padding jobCard(Job job) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey, width: 1),
+  Widget jobCard({required Job job, required void Function()? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.grey, width: 1),
+          ),
+          height: 60,
+          child: Row(children: [
+            SizedBox(
+              width: 20,
+            ),
+            Icon(
+              Icons.timelapse_sharp,
+              size: 40,
+              color: Colors.green,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(job.companyName,
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                Text(
+                  job.jobProfile,
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
+            Expanded(child: Container()),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.green[50],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Apply",
+                  style: TextStyle(color: Colors.green),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 20,
+            )
+          ]),
         ),
-        height: 60,
-        child: Row(children: [
-          SizedBox(
-            width: 20,
-          ),
-          Icon(
-            Icons.timelapse_sharp,
-            size: 40,
-            color: Colors.green,
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(job.companyName,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              Text(
-                job.jobProfile,
-                style: TextStyle(color: Colors.grey),
-              ),
-            ],
-          ),
-          Expanded(child: Container()),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.green[50],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Apply",
-                style: TextStyle(color: Colors.green),
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          )
-        ]),
       ),
     );
   }
