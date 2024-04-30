@@ -1,7 +1,7 @@
 import 'package:campus_ease/app/app.router.dart';
 import 'package:campus_ease/models/Job.dart';
 import 'package:campus_ease/services/JobData.dart';
-import 'package:campus_ease/services/jobs_service.dart';
+import 'package:campus_ease/services/api_calls_service.dart';
 import 'package:campus_ease/services/registration_service.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,13 +9,15 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class AllJobsViewModel extends BaseViewModel {
-  final _dialogService = DialogService();
   final _navigationService = NavigationService();
   final _registrationService = RegistrationService();
-  final JobsService _jobsService = JobsService();
-  // Generating Some sample data for the UI
+
+  final _apiCallsService = ApiCallsService();
+  String? jobsApplied;
+  String? pendingApplications;
+  String? upcomingJobs;
   JobData? jobData = JobData(filled: [
-    Job(
+    const Job(
         companyName: "TCS",
         jobDescription: "JD",
         jobProfile: "UI/UX Designer",
@@ -24,12 +26,11 @@ class AllJobsViewModel extends BaseViewModel {
         file: "www.abes.com",
         startDate: "24/12/2001",
         endDate: "25/12/2001",
-        departmentId: "EN",
-        jobLocation: 'GurGaon',
+        jobLocation: 'Gurgaon',
         webSite: 'www.tcs.com',
         eligibleBranches: 'CSE, IT')
   ], unfilled: [
-    Job(
+    const Job(
         companyName: "Infosys",
         jobDescription: "JD",
         jobProfile: "SoftWare Development Engineer",
@@ -38,18 +39,20 @@ class AllJobsViewModel extends BaseViewModel {
         file: "www.abes.com",
         startDate: "24/12/2001",
         endDate: "25/12/2001",
-        departmentId: "EN",
-        jobLocation: 'GurGaon',
+        jobLocation: 'Gurgaon',
         webSite: 'www.tcs.com',
         eligibleBranches: 'CSE, IT')
   ]);
-  void getJobs() async {
+
+  void init() async {
     // here first we will need to check if the student has registered or not.
     bool registrationStatus = await checkRegistration();
 
     if (registrationStatus) {
       // if the student has registered then we will show the jobs.
       Fluttertoast.showToast(msg: "You are registered");
+      await getAnalyticsDetails();
+      rebuildUi();
       // jobData = await _jobsService.getJobs(); // TODO: Uncomment this line after implementing the getJobs method in the JobsService class.
       // rebuildUi();
     } else {
@@ -65,5 +68,18 @@ class AllJobsViewModel extends BaseViewModel {
 
   void navigateToJobDetails(Job job) {
     _navigationService.navigateToJobDetailsViewView(job: job);
+  }
+
+  // TODO: Implement this
+  onTapBanner() {
+    Fluttertoast.showToast(msg: "Coming Soon!");
+  }
+
+  Future<void> getAnalyticsDetails() async {
+    Map<String, String> analyticsDetails =
+        await _apiCallsService.getAnalyticsDetails();
+    jobsApplied = analyticsDetails['jobsApplied'];
+    pendingApplications = analyticsDetails['pendingApplications'];
+    upcomingJobs = analyticsDetails['upcomingJobs'];
   }
 }

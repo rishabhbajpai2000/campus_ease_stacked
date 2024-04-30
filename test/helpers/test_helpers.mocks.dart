@@ -1018,6 +1018,17 @@ class MockApiCallsService extends _i1.Mock implements _i12.ApiCallsService {
           ),
         )),
       ) as _i8.Future<String>);
+
+  @override
+  _i8.Future<Map<String, String>> getAnalyticsDetails() => (super.noSuchMethod(
+        Invocation.method(
+          #getAnalyticsDetails,
+          [],
+        ),
+        returnValue: _i8.Future<Map<String, String>>.value(<String, String>{}),
+        returnValueForMissingStub:
+            _i8.Future<Map<String, String>>.value(<String, String>{}),
+      ) as _i8.Future<Map<String, String>>);
 }
 
 /// A class which mocks [JobsService].

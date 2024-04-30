@@ -13,21 +13,6 @@ class HomeView extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Campus Ease"),
-        actions: [
-          IconButton(
-              onPressed: () {
-                viewModel.goToRegistration();
-              },
-              icon: Icon(Icons.app_registration)),
-          IconButton(
-              onPressed: () {
-                viewModel.logout();
-              },
-              icon: Icon(Icons.logout))
-        ],
-      ),
       body: viewModel.views[viewModel.currentViewIndex],
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {

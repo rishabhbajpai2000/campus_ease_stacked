@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:campus_ease/app/app.logger.dart';
+import 'package:campus_ease/links/a_p_i.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import "package:http/http.dart" as http;
 import 'package:http/http.dart';
@@ -35,10 +36,8 @@ class ApiCallsService {
     String data = jsonEncode(body);
     Map<String, String> headers = {"Content-type": "application/json"};
     // the request is sent to the backend
-    final Response response = await http.put(
-        Uri.parse("https://campus-ease.onrender.com/student"),
-        headers: headers,
-        body: data);
+    final Response response = await http.put(Uri.parse(registerStudentAPI),
+        headers: headers, body: data);
 
     if (response.statusCode == 200) {
       _logger.i("Registration details successfully sent to the server");
@@ -52,7 +51,7 @@ class ApiCallsService {
 
   Future<bool> isRegistered({required String userId}) async {
     final Response response = await http.get(
-      Uri.parse("https://campus-ease.onrender.com/student/$userId"),
+      Uri.parse("$registerStudentAPI/$userId"),
     );
 
     if (response.statusCode == 200) {
@@ -72,7 +71,7 @@ class ApiCallsService {
 
   Future<String> getJobs({required String userId}) async {
     final Response response = await http.get(
-      Uri.parse("https://campus-ease.onrender.com/jobs/$userId"),
+      Uri.parse("$jobsAPI/$userId"),
     );
 
     if (response.statusCode == 200) {
@@ -83,6 +82,28 @@ class ApiCallsService {
       _logger.e("Error fetching jobs from the server");
       _logger.e(response.body);
       return "Error";
+    }
+  }
+
+  Future<Map<String, String>> getAnalyticsDetails() async {
+    final userId = Supabase.instance.client.auth.currentUser!.id;
+    Map<String, String> analyticsDetails = {};
+    final response = await http.get(
+      Uri.parse("$dashBoardAnalyticsAPI$userId"),
+    );
+    if (response.statusCode == 200) {
+      final responseData = jsonDecode(response.body);
+      analyticsDetails = {
+        "jobsApplied": responseData['applied'].toString(),
+        "upcomingJobs": responseData['upcoming'].toString(),
+        "pendingApplications": responseData['pending'].toString(),
+      };
+      return analyticsDetails;
+    } else {
+      _logger.e("Error fetching analytics details from the server");
+      _logger.e(response.body);
+      throw Fluttertoast.showToast(
+          msg: "Error fetching analytics details from the server");
     }
   }
 }

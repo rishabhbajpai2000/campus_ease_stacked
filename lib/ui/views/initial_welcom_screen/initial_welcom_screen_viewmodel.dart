@@ -5,6 +5,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 class InitialWelcomScreenViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
+
   void navigateToSignInView() {
     _navigationService.navigateToSigninView();
   }

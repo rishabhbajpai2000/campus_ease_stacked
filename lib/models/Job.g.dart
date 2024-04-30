@@ -18,7 +18,6 @@ _$JobImpl _$$JobImplFromJson(Map<String, dynamic> json) => _$JobImpl(
       regLink: json['regLink'] as String,
       file: json['file'] as String,
       startDate: json['startDate'] as String,
-      departmentId: json['departmentId'],
     );
 
 Map<String, dynamic> _$$JobImplToJson(_$JobImpl instance) => <String, dynamic>{
@@ -33,5 +32,4 @@ Map<String, dynamic> _$$JobImplToJson(_$JobImpl instance) => <String, dynamic>{
       'regLink': instance.regLink,
       'file': instance.file,
       'startDate': instance.startDate,
-      'departmentId': instance.departmentId,
     };

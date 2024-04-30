@@ -31,7 +31,6 @@ mixin _$Job {
   String get regLink => throw _privateConstructorUsedError;
   String get file => throw _privateConstructorUsedError;
   String get startDate => throw _privateConstructorUsedError;
-  dynamic get departmentId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,8 +53,7 @@ abstract class $JobCopyWith<$Res> {
       String endDate,
       String regLink,
       String file,
-      String startDate,
-      dynamic departmentId});
+      String startDate});
 }
 
 /// @nodoc
@@ -81,7 +79,6 @@ class _$JobCopyWithImpl<$Res, $Val extends Job> implements $JobCopyWith<$Res> {
     Object? regLink = null,
     Object? file = null,
     Object? startDate = null,
-    Object? departmentId = freezed,
   }) {
     return _then(_value.copyWith(
       jobProfile: null == jobProfile
@@ -128,10 +125,6 @@ class _$JobCopyWithImpl<$Res, $Val extends Job> implements $JobCopyWith<$Res> {
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
               as String,
-      departmentId: freezed == departmentId
-          ? _value.departmentId
-          : departmentId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
     ) as $Val);
   }
 }
@@ -153,8 +146,7 @@ abstract class _$$JobImplCopyWith<$Res> implements $JobCopyWith<$Res> {
       String endDate,
       String regLink,
       String file,
-      String startDate,
-      dynamic departmentId});
+      String startDate});
 }
 
 /// @nodoc
@@ -177,7 +169,6 @@ class __$$JobImplCopyWithImpl<$Res> extends _$JobCopyWithImpl<$Res, _$JobImpl>
     Object? regLink = null,
     Object? file = null,
     Object? startDate = null,
-    Object? departmentId = freezed,
   }) {
     return _then(_$JobImpl(
       jobProfile: null == jobProfile
@@ -224,10 +215,6 @@ class __$$JobImplCopyWithImpl<$Res> extends _$JobCopyWithImpl<$Res, _$JobImpl>
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
               as String,
-      departmentId: freezed == departmentId
-          ? _value.departmentId
-          : departmentId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
     ));
   }
 }
@@ -246,8 +233,7 @@ class _$JobImpl extends _Job {
       required this.endDate,
       required this.regLink,
       required this.file,
-      required this.startDate,
-      required this.departmentId})
+      required this.startDate})
       : super._();
 
   factory _$JobImpl.fromJson(Map<String, dynamic> json) =>
@@ -275,8 +261,6 @@ class _$JobImpl extends _Job {
   final String file;
   @override
   final String startDate;
-  @override
-  final dynamic departmentId;
 
   @override
   bool operator ==(Object other) {
@@ -299,9 +283,7 @@ class _$JobImpl extends _Job {
             (identical(other.regLink, regLink) || other.regLink == regLink) &&
             (identical(other.file, file) || other.file == file) &&
             (identical(other.startDate, startDate) ||
-                other.startDate == startDate) &&
-            const DeepCollectionEquality()
-                .equals(other.departmentId, departmentId));
+                other.startDate == startDate));
   }
 
   @JsonKey(ignore: true)
@@ -318,8 +300,7 @@ class _$JobImpl extends _Job {
       endDate,
       regLink,
       file,
-      startDate,
-      const DeepCollectionEquality().hash(departmentId));
+      startDate);
 
   @JsonKey(ignore: true)
   @override
@@ -347,8 +328,7 @@ abstract class _Job extends Job {
       required final String endDate,
       required final String regLink,
       required final String file,
-      required final String startDate,
-      required final dynamic departmentId}) = _$JobImpl;
+      required final String startDate}) = _$JobImpl;
   const _Job._() : super._();
 
   factory _Job.fromJson(Map<String, dynamic> json) = _$JobImpl.fromJson;
@@ -375,8 +355,6 @@ abstract class _Job extends Job {
   String get file;
   @override
   String get startDate;
-  @override
-  dynamic get departmentId;
   @override
   @JsonKey(ignore: true)
   _$$JobImplCopyWith<_$JobImpl> get copyWith =>
