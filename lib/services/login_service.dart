@@ -62,7 +62,4 @@ class LoginService {
     _navigationService.clearStackAndShow(Routes.startupView);
   }
 
-  bool isRegistered() {
-    return true; //TODO: implement this function.
-  }
 }

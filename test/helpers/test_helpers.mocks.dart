@@ -852,16 +852,6 @@ class MockLoginService extends _i1.Mock implements _i10.LoginService {
           ),
         )),
       ) as _i8.Future<_i2.AuthResponse>);
-
-  @override
-  bool isRegistered() => (super.noSuchMethod(
-        Invocation.method(
-          #isRegistered,
-          [],
-        ),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
 }
 
 /// A class which mocks [RegistrationService].

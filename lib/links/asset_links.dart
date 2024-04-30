@@ -6,7 +6,6 @@ String ABESLogoTransparent =
 String initialWelcomeScreenCenterImage =
     "https://wdwtkrvlzdvakzcmoukf.supabase.co/storage/v1/object/public/Assets/CampusEase/InitialWelcomeCenterImage.png?t=2024-04-15T20%3A06%3A23.064Z";
 
-// TODO: add this banner
 String dashboardBanner1 =
     "https://wdwtkrvlzdvakzcmoukf.supabase.co/storage/v1/object/public/Assets/CCPD/DashboardBanner1.png?";
 String dashboardBanner2 =
