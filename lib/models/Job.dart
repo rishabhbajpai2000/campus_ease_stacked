@@ -11,8 +11,8 @@ class Job with _$Job {
     required String jobLocation,
     required String expCTC,
     required String jobDescription,
-    required String webSite,
-    required String eligibleBranches,
+    @JsonKey(name: "websiteUrl") required String webSite,
+    required String branches,
     required String endDate,
     required String regLink,
     required String file,
@@ -33,3 +33,4 @@ class Job with _$Job {
               ''';
   }
 }
+// flutter pub run build_runner watch --delete-conflicting-outputs

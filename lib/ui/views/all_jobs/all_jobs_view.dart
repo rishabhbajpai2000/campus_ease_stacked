@@ -4,6 +4,7 @@ import 'package:campus_ease/models/Job.dart';
 import 'package:campus_ease/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -57,7 +58,7 @@ class AllJobsView extends StackedView<AllJobsViewModel> {
                   ],
                 ),
                 verticalSpaceMedium,
-                // TODO: implement a gesture detector for this. 
+                // TODO: implement a gesture detector for this.
                 Image.network(dashboardBanner6),
                 verticalSpaceMedium,
                 Row(
@@ -116,17 +117,42 @@ class AllJobsView extends StackedView<AllJobsViewModel> {
                   children: [
                     const DashboardHeading(title: "Pending Job Applications"),
                     Expanded(child: Container()),
-                    // TODO: implement this refresh button. 
-                    const CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      child: Icon(Icons.refresh_rounded),
+                    GestureDetector(
+                      onTap: () async {
+                        await viewModel.getJobsAndAnalytics();
+                        Fluttertoast.showToast(msg: "Jobs Refreshed");
+                      },
+                      child: const CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        child: Icon(Icons.refresh_rounded),
+                      ),
                     ),
                     horizontalSpaceSmall
                   ],
                 ),
                 verticalSpaceSmall,
+                if (viewModel.jobData == null)
+                  const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: SizedBox(
+                        height: 40,
+                        width: 40,
+                        child: LoadingIndicator(
+                          indicatorType: Indicator.lineScale,
+                        ),
+                      ),
+                    ),
+                  )
+                else if (viewModel.jobData?.unfilled.isEmpty ?? true)
+                  const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: Text("No Pending Applications"),
+                    ),
+                  ),
                 SizedBox(
-                  height: 130.0 * (viewModel.jobData?.filled.length ?? 0),
+                  height: 130.0 * (viewModel.jobData?.unfilled.length ?? 0),
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: viewModel.jobData?.unfilled.length ?? 0,

@@ -25,8 +25,9 @@ mixin _$Job {
   String get jobLocation => throw _privateConstructorUsedError;
   String get expCTC => throw _privateConstructorUsedError;
   String get jobDescription => throw _privateConstructorUsedError;
+  @JsonKey(name: "websiteUrl")
   String get webSite => throw _privateConstructorUsedError;
-  String get eligibleBranches => throw _privateConstructorUsedError;
+  String get branches => throw _privateConstructorUsedError;
   String get endDate => throw _privateConstructorUsedError;
   String get regLink => throw _privateConstructorUsedError;
   String get file => throw _privateConstructorUsedError;
@@ -48,8 +49,8 @@ abstract class $JobCopyWith<$Res> {
       String jobLocation,
       String expCTC,
       String jobDescription,
-      String webSite,
-      String eligibleBranches,
+      @JsonKey(name: "websiteUrl") String webSite,
+      String branches,
       String endDate,
       String regLink,
       String file,
@@ -74,7 +75,7 @@ class _$JobCopyWithImpl<$Res, $Val extends Job> implements $JobCopyWith<$Res> {
     Object? expCTC = null,
     Object? jobDescription = null,
     Object? webSite = null,
-    Object? eligibleBranches = null,
+    Object? branches = null,
     Object? endDate = null,
     Object? regLink = null,
     Object? file = null,
@@ -105,9 +106,9 @@ class _$JobCopyWithImpl<$Res, $Val extends Job> implements $JobCopyWith<$Res> {
           ? _value.webSite
           : webSite // ignore: cast_nullable_to_non_nullable
               as String,
-      eligibleBranches: null == eligibleBranches
-          ? _value.eligibleBranches
-          : eligibleBranches // ignore: cast_nullable_to_non_nullable
+      branches: null == branches
+          ? _value.branches
+          : branches // ignore: cast_nullable_to_non_nullable
               as String,
       endDate: null == endDate
           ? _value.endDate
@@ -141,8 +142,8 @@ abstract class _$$JobImplCopyWith<$Res> implements $JobCopyWith<$Res> {
       String jobLocation,
       String expCTC,
       String jobDescription,
-      String webSite,
-      String eligibleBranches,
+      @JsonKey(name: "websiteUrl") String webSite,
+      String branches,
       String endDate,
       String regLink,
       String file,
@@ -164,7 +165,7 @@ class __$$JobImplCopyWithImpl<$Res> extends _$JobCopyWithImpl<$Res, _$JobImpl>
     Object? expCTC = null,
     Object? jobDescription = null,
     Object? webSite = null,
-    Object? eligibleBranches = null,
+    Object? branches = null,
     Object? endDate = null,
     Object? regLink = null,
     Object? file = null,
@@ -195,9 +196,9 @@ class __$$JobImplCopyWithImpl<$Res> extends _$JobCopyWithImpl<$Res, _$JobImpl>
           ? _value.webSite
           : webSite // ignore: cast_nullable_to_non_nullable
               as String,
-      eligibleBranches: null == eligibleBranches
-          ? _value.eligibleBranches
-          : eligibleBranches // ignore: cast_nullable_to_non_nullable
+      branches: null == branches
+          ? _value.branches
+          : branches // ignore: cast_nullable_to_non_nullable
               as String,
       endDate: null == endDate
           ? _value.endDate
@@ -228,8 +229,8 @@ class _$JobImpl extends _Job {
       required this.jobLocation,
       required this.expCTC,
       required this.jobDescription,
-      required this.webSite,
-      required this.eligibleBranches,
+      @JsonKey(name: "websiteUrl") required this.webSite,
+      required this.branches,
       required this.endDate,
       required this.regLink,
       required this.file,
@@ -250,9 +251,10 @@ class _$JobImpl extends _Job {
   @override
   final String jobDescription;
   @override
+  @JsonKey(name: "websiteUrl")
   final String webSite;
   @override
-  final String eligibleBranches;
+  final String branches;
   @override
   final String endDate;
   @override
@@ -277,8 +279,8 @@ class _$JobImpl extends _Job {
             (identical(other.jobDescription, jobDescription) ||
                 other.jobDescription == jobDescription) &&
             (identical(other.webSite, webSite) || other.webSite == webSite) &&
-            (identical(other.eligibleBranches, eligibleBranches) ||
-                other.eligibleBranches == eligibleBranches) &&
+            (identical(other.branches, branches) ||
+                other.branches == branches) &&
             (identical(other.endDate, endDate) || other.endDate == endDate) &&
             (identical(other.regLink, regLink) || other.regLink == regLink) &&
             (identical(other.file, file) || other.file == file) &&
@@ -296,7 +298,7 @@ class _$JobImpl extends _Job {
       expCTC,
       jobDescription,
       webSite,
-      eligibleBranches,
+      branches,
       endDate,
       regLink,
       file,
@@ -323,8 +325,8 @@ abstract class _Job extends Job {
       required final String jobLocation,
       required final String expCTC,
       required final String jobDescription,
-      required final String webSite,
-      required final String eligibleBranches,
+      @JsonKey(name: "websiteUrl") required final String webSite,
+      required final String branches,
       required final String endDate,
       required final String regLink,
       required final String file,
@@ -344,9 +346,10 @@ abstract class _Job extends Job {
   @override
   String get jobDescription;
   @override
+  @JsonKey(name: "websiteUrl")
   String get webSite;
   @override
-  String get eligibleBranches;
+  String get branches;
   @override
   String get endDate;
   @override
