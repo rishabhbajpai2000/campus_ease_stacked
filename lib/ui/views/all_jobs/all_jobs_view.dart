@@ -10,6 +10,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'all_jobs_viewmodel.dart';
+import "package:url_launcher/url_launcher.dart";
 
 class AllJobsView extends StackedView<AllJobsViewModel> {
   const AllJobsView({Key? key}) : super(key: key);
@@ -58,7 +59,6 @@ class AllJobsView extends StackedView<AllJobsViewModel> {
                   ],
                 ),
                 verticalSpaceMedium,
-                // TODO: implement a gesture detector for this.
                 Image.network(dashboardBanner6),
                 verticalSpaceMedium,
                 Row(
@@ -90,23 +90,23 @@ class AllJobsView extends StackedView<AllJobsViewModel> {
                     scrollDirection: Axis.horizontal,
                     children: [
                       DashboardBanner(
-                        onTap: viewModel.onTapBanner,
+                        imageAddress: "MechanicalFAQ.pdf",
                         imageLink: dashboardBanner1,
                       ),
                       DashboardBanner(
-                        onTap: viewModel.onTapBanner,
+                        imageAddress: "MechanicalFAQ.pdf",
                         imageLink: dashboardBanner2,
                       ),
                       DashboardBanner(
-                        onTap: viewModel.onTapBanner,
+                        imageAddress: "CivilFAQ.pdf",
                         imageLink: dashboardBanner3,
                       ),
                       DashboardBanner(
-                        onTap: viewModel.onTapBanner,
+                        imageAddress: "ElectricalFAQ.pdf",
                         imageLink: dashboardBanner4,
                       ),
                       DashboardBanner(
-                        onTap: viewModel.onTapBanner,
+                        imageAddress: "ElectronicsFAQ.pdf",
                         imageLink: dashboardBanner5,
                       ),
                     ],
@@ -321,19 +321,25 @@ class DashboardAnalyticsDataCard extends StatelessWidget {
 }
 
 class DashboardBanner extends StatelessWidget {
-  final void Function()? onTap;
   final String imageLink;
-  const DashboardBanner({
-    super.key,
-    required this.onTap,
-    required this.imageLink,
-  });
+  const DashboardBanner(
+      {super.key, required this.imageLink, required this.imageAddress});
+  final String imageAddress;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        GestureDetector(onTap: onTap, child: Image.network(imageLink)),
+        GestureDetector(
+            onTap: () async {
+              final String link =
+                  "$baseImageAddress/Assets/QuestionDocs/$imageAddress";
+              final Uri url = Uri.parse(link);
+              if (!await launchUrl(url)) {
+                Fluttertoast.showToast(msg: "Could not Load PDF");
+              }
+            },
+            child: Image.network(imageLink)),
         const SizedBox(
           width: 5,
         ),

@@ -1,4 +1,5 @@
 import 'package:campus_ease/app/app.router.dart';
+import 'package:campus_ease/links/asset_links.dart';
 import 'package:campus_ease/models/Job.dart';
 import 'package:campus_ease/services/JobData.dart';
 import 'package:campus_ease/services/api_calls_service.dart';
@@ -8,6 +9,7 @@ import 'package:campus_ease/services/registration_service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import "package:url_launcher/url_launcher.dart";
 
 class AllJobsViewModel extends BaseViewModel {
   final _navigationService = NavigationService();
@@ -45,11 +47,6 @@ class AllJobsViewModel extends BaseViewModel {
 
   void navigateToJobDetails(Job job) {
     _navigationService.navigateToJobDetailsViewView(job: job);
-  }
-
-  // TODO: Implement this
-  onTapBanner() {
-    Fluttertoast.showToast(msg: "Coming Soon!");
   }
 
   Future<void> getAnalyticsDetails() async {

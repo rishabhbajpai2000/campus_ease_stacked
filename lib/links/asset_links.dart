@@ -18,3 +18,6 @@ String dashboardBanner5 =
     "https://wdwtkrvlzdvakzcmoukf.supabase.co/storage/v1/object/public/Assets/CCPD/DashboardBanner5.png";
 String dashboardBanner6 =
     "https://wdwtkrvlzdvakzcmoukf.supabase.co/storage/v1/object/public/Assets/CampusEase/DashboardBanner.png?t=2024-04-30T14%3A43%3A40.751Z";
+
+String baseImageAddress =
+    "https://wdwtkrvlzdvakzcmoukf.supabase.co/storage/v1/object/public";

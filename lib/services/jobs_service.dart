@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:campus_ease/services/JobData.dart';
 import 'package:campus_ease/services/api_calls_service.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class JobsService {
@@ -16,7 +17,7 @@ class JobsService {
     String responseBody = await _apiCallsService.getJobs(userId: userId);
     if (responseBody == "Error") {
       // if there is an error then we will show a toast message.
-      // TODO: handle this later.
+      Fluttertoast.showToast(msg:"Error in getting jobs");
       return JobData(filled: [], unfilled: []);
     } else {
       JobData jobData = JobData.fromJson(jsonDecode(responseBody));
