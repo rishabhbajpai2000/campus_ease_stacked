@@ -30,12 +30,22 @@ class JobTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 verticalSpaceTiny,
-                Text(
-                  "${job.jobProfile} | ${job.companyName}",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      "${job.jobProfile} | ${job.companyName}",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                    Spacer(),
+                    Text(
+                      "Job Id: ${job.id}",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    horizontalSpaceSmall
+                  ],
                 ),
                 verticalSpaceTiny,
                 Text(
@@ -66,7 +76,7 @@ class JobTile extends StatelessWidget {
                         ),
                       ),
                     ),
-                    horizontalSpaceMedium
+                    horizontalSpaceSmall
                   ],
                 ),
               ],
