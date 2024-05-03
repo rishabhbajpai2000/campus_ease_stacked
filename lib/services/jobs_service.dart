@@ -17,7 +17,7 @@ class JobsService {
     String responseBody = await _apiCallsService.getJobs(userId: userId);
     if (responseBody == "Error") {
       // if there is an error then we will show a toast message.
-      Fluttertoast.showToast(msg:"Error in getting jobs");
+      Fluttertoast.showToast(msg: "Error in getting jobs");
       return JobData(filled: [], unfilled: []);
     } else {
       JobData jobData = JobData.fromJson(jsonDecode(responseBody));

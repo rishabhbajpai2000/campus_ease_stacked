@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:campus_ease/app/app.logger.dart';
 import 'package:campus_ease/links/a_p_i.dart';
+import 'package:campus_ease/models/Job.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import "package:http/http.dart" as http;
 import 'package:http/http.dart';
@@ -106,4 +107,28 @@ class ApiCallsService {
           msg: "Error fetching analytics details from the server");
     }
   }
+
+  Future<int> applyForJob({required int jobId}) async {
+    final userId = Supabase.instance.client.auth.currentUser!.id;
+    Map<String, dynamic> body = {
+      "userId": userId,
+      "jobId": jobId,
+    };
+
+    String data = jsonEncode(body);
+    Map<String, String> headers = {"Content-type": "application/json"};
+    final Response response = await http.post(Uri.parse(applyForJobAPI),
+        headers: headers, body: data);
+
+    if (response.statusCode == 200) {
+      _logger.i("Job successfully applied");
+    } else {
+      _logger.e("Error applying for the job");
+      _logger.e(response.body);
+    }
+
+    return response.statusCode;
+  }
+
+
 }

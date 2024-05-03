@@ -1,3 +1,4 @@
+import 'package:campus_ease/links/a_p_i.dart';
 import 'package:campus_ease/models/Job.dart';
 import 'package:campus_ease/ui/common/ui_helpers.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,7 +11,10 @@ import 'job_details_view_viewmodel.dart';
 
 class JobDetailsViewView extends StackedView<JobDetailsViewViewModel> {
   final Job job;
-  const JobDetailsViewView({Key? key, required this.job}) : super(key: key);
+  final bool showApplyButton;
+  const JobDetailsViewView(
+      {Key? key, required this.job, required this.showApplyButton})
+      : super(key: key);
 
   @override
   Widget builder(
@@ -100,22 +104,28 @@ class JobDetailsViewView extends StackedView<JobDetailsViewViewModel> {
               link: true,
             ),
             verticalSpaceMedium,
-            Row(
-              children: [
-                JobDetailsPageButton(
-                  title: "Back",
-                  titleColor: const Color(0xff0974F1),
-                  backgroundColor: const Color(0xffD2E8FE),
-                  onTap: () => Navigator.pop(context),
-                ),
-                horizontalSpaceSmall,
-                JobDetailsPageButton(
-                    title: "Apply",
-                    titleColor: Colors.white,
-                    backgroundColor: const Color(0xff0974F1),
-                    onTap: () {}),
-              ],
-            )
+            showApplyButton
+                ? Row(
+                    children: [
+                      JobDetailsPageButton(
+                        title: "Back",
+                        titleColor: const Color(0xff0974F1),
+                        backgroundColor: const Color(0xffD2E8FE),
+                        onTap: () => Navigator.pop(context),
+                      ),
+                      horizontalSpaceSmall,
+                      JobDetailsPageButton(
+                          title: viewModel.isBusy ? "Applying..." : "Apply",
+                          titleColor: Colors.white,
+                          backgroundColor: const Color(0xff0974F1),
+                          onTap: () async {
+                            await viewModel.applyForJob(job: job);
+                          }),
+                    ],
+                  )
+                : const SizedBox(
+                    height: 0,
+                  )
           ],
         ),
       ),

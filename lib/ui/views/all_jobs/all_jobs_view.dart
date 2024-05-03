@@ -2,6 +2,7 @@ import 'package:campus_ease/app/app.router.dart';
 import 'package:campus_ease/links/asset_links.dart';
 import 'package:campus_ease/models/Job.dart';
 import 'package:campus_ease/ui/common/ui_helpers.dart';
+import 'package:campus_ease/ui/common/widgets/JobsLoading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,6 +10,7 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../common/widgets/Jobtile.dart';
 import 'all_jobs_viewmodel.dart';
 import "package:url_launcher/url_launcher.dart";
 
@@ -82,7 +84,7 @@ class AllJobsView extends StackedView<AllJobsViewModel> {
                   ],
                 ),
                 verticalSpaceMedium,
-                const DashboardHeading(title: "Preparation Material"),
+                const Heading(title: "Preparation Material"),
                 verticalSpaceSmall,
                 SizedBox(
                   height: 125,
@@ -115,7 +117,7 @@ class AllJobsView extends StackedView<AllJobsViewModel> {
                 verticalSpaceMedium,
                 Row(
                   children: [
-                    const DashboardHeading(title: "Pending Job Applications"),
+                    const Heading(title: "Pending Job Applications"),
                     Expanded(child: Container()),
                     GestureDetector(
                       onTap: () async {
@@ -132,18 +134,7 @@ class AllJobsView extends StackedView<AllJobsViewModel> {
                 ),
                 verticalSpaceSmall,
                 if (viewModel.jobData == null)
-                  const SizedBox(
-                    height: 100,
-                    child: Center(
-                      child: SizedBox(
-                        height: 40,
-                        width: 40,
-                        child: LoadingIndicator(
-                          indicatorType: Indicator.lineScale,
-                        ),
-                      ),
-                    ),
-                  )
+                  ShowJobsLoading()
                 else if (viewModel.jobData?.unfilled.isEmpty ?? true)
                   const SizedBox(
                     height: 100,
@@ -152,7 +143,7 @@ class AllJobsView extends StackedView<AllJobsViewModel> {
                     ),
                   ),
                 SizedBox(
-                  height: 130.0 * (viewModel.jobData?.unfilled.length ?? 0),
+                  height: 120.0 * (viewModel.jobData?.unfilled.length ?? 0),
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: viewModel.jobData?.unfilled.length ?? 0,
@@ -182,88 +173,8 @@ class AllJobsView extends StackedView<AllJobsViewModel> {
   }
 }
 
-class JobTile extends StatelessWidget {
-  const JobTile({
-    super.key,
-    required this.job,
-  });
-
-  final Job job;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.grey)),
-        height: 120,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                verticalSpaceTiny,
-                Text(
-                  "${job.jobProfile} | ${job.companyName}",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
-                ),
-                verticalSpaceTiny,
-                Text(
-                  "${job.expCTC} LPA | Full Time | ${job.jobLocation}",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
-                    fontSize: 13,
-                  ),
-                ),
-                Divider(),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Deadline: ${job.endDate}",
-                    ),
-                    Expanded(child: Container()),
-                    GestureDetector(
-                      onTap: () {
-                        NavigationService()
-                            .navigateToJobDetailsViewView(job: job);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Color(0xff0974f0),
-                            borderRadius: BorderRadius.circular(15)),
-                        child: const Padding(
-                          padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                          child: Text(
-                            "View Details",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class DashboardHeading extends StatelessWidget {
-  const DashboardHeading({super.key, required this.title});
+class Heading extends StatelessWidget {
+  const Heading({super.key, required this.title});
   final String title;
 
   @override

@@ -16,6 +16,7 @@ import 'package:campus_ease/services/registration_service.dart';
 import 'package:campus_ease/services/api_calls_service.dart';
 import 'package:campus_ease/services/jobs_service.dart';
 import 'package:campus_ease/ui/views/job_details_view/job_details_view_view.dart';
+import 'package:campus_ease/ui/views/applied_jobs/applied_jobs_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -31,6 +32,7 @@ import 'package:campus_ease/ui/views/job_details_view/job_details_view_view.dart
     MaterialRoute(page: ProfileView),
     MaterialRoute(page: RegistrationDetailsView),
     MaterialRoute(page: JobDetailsViewView),
+    MaterialRoute(page: AppliedJobsView),
 // @stacked-route
   ],
   dependencies: [

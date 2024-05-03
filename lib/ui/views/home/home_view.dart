@@ -1,3 +1,6 @@
+import 'package:campus_ease/ui/views/all_jobs/all_jobs_view.dart';
+import 'package:campus_ease/ui/views/applied_jobs/applied_jobs_view.dart';
+import 'package:campus_ease/ui/views/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -5,6 +8,17 @@ import 'home_viewmodel.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
   const HomeView({Key? key}) : super(key: key);
+  Widget getViewForIndex(int index) {
+    switch (index) {
+      case 0:
+        return const AllJobsView();
+      case 1:
+        return const AppliedJobsView();
+      case 2:
+        return const ProfileView();
+    }
+    return Container();
+  }
 
   @override
   Widget builder(
@@ -13,32 +27,45 @@ class HomeView extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      body: viewModel.views[viewModel.currentViewIndex],
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          viewModel.onDestinationSelected(index);
-        },
-        indicatorColor: Colors.grey[300],
-        selectedIndex: viewModel.currentViewIndex,
-        destinations: const <Widget>[
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.message),
-            icon: Icon(Icons.message_outlined),
-            label: 'Announcements',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.person),
-            icon: Icon(Icons.person_outlined),
-            label: 'Profile',
-          ),
-        ],
-      ),
-    );
+        body: getViewForIndex(viewModel.currentIndex),
+        bottomNavigationBar: BottomNavigationBar(
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+              icon: SizedBox(
+                height: 30,
+                width: 25,
+                child: Image.asset(
+                  "assets/home.png",
+                ),
+              ),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+                icon: SizedBox(
+                  height: 30,
+                  width: 25,
+                  child: Image.asset(
+                    "assets/appliedJobs.png",
+                  ),
+                ),
+                label: "Applied Jobs"),
+            BottomNavigationBarItem(
+                icon: SizedBox(
+                  height: 30,
+                  width: 25,
+                  child: Image.asset(
+                    "assets/notifications.png",
+                  ),
+                ),
+                label: "Profile"),
+          ],
+          currentIndex: viewModel.currentIndex,
+          selectedItemColor: const Color(0xFF174DA3),
+          onTap: viewModel.setIndex,
+        ));
   }
 
   @override

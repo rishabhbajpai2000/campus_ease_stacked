@@ -61,5 +61,4 @@ class LoginService {
     await supabase.auth.signOut();
     _navigationService.clearStackAndShow(Routes.startupView);
   }
-
 }

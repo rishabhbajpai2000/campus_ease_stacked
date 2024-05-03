@@ -17,20 +17,8 @@ class Job with _$Job {
     required String regLink,
     required String file,
     required String startDate,
+    required int id,
   }) = _Job;
   factory Job.fromJson(Map<String, dynamic> json) => _$JobFromJson(json);
-  @override
-  String toString() {
-    return '''Job(companyName: $companyName, 
-              jobDescription: $jobDescription, 
-              jobProfile: $jobProfile, 
-              expCTC: $expCTC, 
-              regLink: $regLink, 
-              file: $file, 
-              startDate: $startDate, 
-              endDate: $endDate, 
-              )
-              ''';
-  }
 }
 // flutter pub run build_runner watch --delete-conflicting-outputs

@@ -9,7 +9,6 @@ import 'package:campus_ease/services/registration_service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import "package:url_launcher/url_launcher.dart";
 
 class AllJobsViewModel extends BaseViewModel {
   final _navigationService = NavigationService();
@@ -43,10 +42,6 @@ class AllJobsViewModel extends BaseViewModel {
 
   Future<bool> checkRegistration() async {
     return await _registrationService.isRegistered();
-  }
-
-  void navigateToJobDetails(Job job) {
-    _navigationService.navigateToJobDetailsViewView(job: job);
   }
 
   Future<void> getAnalyticsDetails() async {
