@@ -17,7 +17,9 @@ class Student with _$Student {
     required String sgpa,
     required String percentage,
     required String? imageUrl,
+    @JsonKey(defaultValue: "12345") required String collegeRegistrationNumber,
   }) = _Student;
 
-  factory Student.fromJson(Map<String, dynamic> json) => _$StudentFromJson(json);
+  factory Student.fromJson(Map<String, dynamic> json) =>
+      _$StudentFromJson(json);
 }

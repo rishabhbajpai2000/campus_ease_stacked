@@ -18,6 +18,8 @@ _$StudentImpl _$$StudentImplFromJson(Map<String, dynamic> json) =>
       sgpa: json['sgpa'] as String,
       percentage: json['percentage'] as String,
       imageUrl: json['imageUrl'] as String?,
+      collegeRegistrationNumber:
+          json['collegeRegistrationNumber'] as String? ?? '12345',
     );
 
 Map<String, dynamic> _$$StudentImplToJson(_$StudentImpl instance) =>
@@ -32,4 +34,5 @@ Map<String, dynamic> _$$StudentImplToJson(_$StudentImpl instance) =>
       'sgpa': instance.sgpa,
       'percentage': instance.percentage,
       'imageUrl': instance.imageUrl,
+      'collegeRegistrationNumber': instance.collegeRegistrationNumber,
     };

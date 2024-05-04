@@ -46,8 +46,8 @@ class AllJobsView extends StackedView<AllJobsViewModel> {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Hello, Student!",
+                     Text(
+                      "Hello, ${viewModel.studentName}!",
                       style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.bold,

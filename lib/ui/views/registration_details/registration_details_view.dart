@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import '../../../models/Student.dart';
 import 'registration_details_viewmodel.dart';
 
 @FormView(fields: [
@@ -29,7 +30,8 @@ import 'registration_details_viewmodel.dart';
 ])
 class RegistrationDetailsView extends StackedView<RegistrationDetailsViewModel>
     with $RegistrationDetailsView {
-  const RegistrationDetailsView({Key? key}) : super(key: key);
+  const RegistrationDetailsView({Key? key, this.student}) : super(key: key);
+  final Student? student;
 
   @override
   Widget builder(
@@ -50,6 +52,33 @@ class RegistrationDetailsView extends StackedView<RegistrationDetailsViewModel>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Center(
+                  child: GestureDetector(
+                      onTap: () async {
+                        viewModel.imageProcessing = true;
+                        viewModel.rebuildUi();
+                        await viewModel.getImage();
+                        viewModel.imageProcessing = false;
+                        viewModel.rebuildUi();
+                      },
+                      child: CircleAvatar(
+                          backgroundColor: Colors.grey.shade100,
+                          radius: 70,
+
+                          // PS: I know this is really bad code - But am not in mood to find better solution. If it works it works. - Rishabh
+                          child: viewModel.imageUrl == null &&
+                                  viewModel.imageProcessing == false
+                              ? Image.asset(
+                                  "assets/profile.png",
+                                  fit: BoxFit.fitHeight,
+                                )
+                              : viewModel.imageProcessing
+                                  ? const CircularProgressIndicator()
+                                  : Image.network(
+                                      viewModel.imageUrl!,
+                                      fit: BoxFit.fill,
+                                    ))),
+                ),
                 const Text("First Name"),
                 TextFormField(
                   controller: firstNameController,
@@ -179,5 +208,6 @@ class RegistrationDetailsView extends StackedView<RegistrationDetailsViewModel>
   @override
   void onViewModelReady(RegistrationDetailsViewModel viewModel) {
     syncFormWithViewModel(viewModel);
+    viewModel.init(student: student);
   }
 }

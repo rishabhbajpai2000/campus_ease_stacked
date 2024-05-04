@@ -1,6 +1,7 @@
 import 'package:campus_ease/app/app.router.dart';
 import 'package:campus_ease/links/asset_links.dart';
 import 'package:campus_ease/models/Job.dart';
+import 'package:campus_ease/models/Student.dart';
 import 'package:campus_ease/services/JobData.dart';
 import 'package:campus_ease/services/api_calls_service.dart';
 import 'package:campus_ease/services/jobs_service.dart';
@@ -14,7 +15,7 @@ class AllJobsViewModel extends BaseViewModel {
   final _navigationService = NavigationService();
   final _registrationService = RegistrationService();
   final _jobsService = JobsService();
-
+  String studentName = "Student";
   final _apiCallsService = ApiCallsService();
   String? jobsApplied;
   String? pendingApplications;
@@ -25,7 +26,9 @@ class AllJobsViewModel extends BaseViewModel {
     bool registrationStatus = await checkRegistration();
 
     if (registrationStatus) {
-      // Fluttertoast.showToast(msg: "You are registered");
+      Student student = await _apiCallsService.getStudentDetails();
+      studentName = student.firstName;
+      rebuildUi();
       await getJobsAndAnalytics();
     } else {
       Fluttertoast.showToast(msg: "Please register first");

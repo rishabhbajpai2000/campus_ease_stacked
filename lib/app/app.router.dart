@@ -5,7 +5,8 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:campus_ease/models/Job.dart' as _i14;
+import 'package:campus_ease/models/Job.dart' as _i15;
+import 'package:campus_ease/models/Student.dart' as _i14;
 import 'package:campus_ease/ui/views/all_jobs/all_jobs_view.dart' as _i7;
 import 'package:campus_ease/ui/views/announcements/announcements_view.dart'
     as _i8;
@@ -25,7 +26,7 @@ import 'package:campus_ease/ui/views/startup/startup_view.dart' as _i3;
 import 'package:flutter/material.dart' as _i13;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i15;
+import 'package:stacked_services/stacked_services.dart' as _i16;
 
 class Routes {
   static const homeView = '/home-view';
@@ -163,8 +164,12 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i10.RegistrationDetailsView: (data) {
+      final args = data.getArgs<RegistrationDetailsViewArguments>(
+        orElse: () => const RegistrationDetailsViewArguments(),
+      );
       return _i13.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i10.RegistrationDetailsView(),
+        builder: (context) =>
+            _i10.RegistrationDetailsView(key: args.key, student: args.student),
         settings: data,
       );
     },
@@ -193,6 +198,33 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
+class RegistrationDetailsViewArguments {
+  const RegistrationDetailsViewArguments({
+    this.key,
+    this.student,
+  });
+
+  final _i13.Key? key;
+
+  final _i14.Student? student;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "student": "$student"}';
+  }
+
+  @override
+  bool operator ==(covariant RegistrationDetailsViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.student == student;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ student.hashCode;
+  }
+}
+
 class JobDetailsViewViewArguments {
   const JobDetailsViewViewArguments({
     this.key,
@@ -202,7 +234,7 @@ class JobDetailsViewViewArguments {
 
   final _i13.Key? key;
 
-  final _i14.Job job;
+  final _i15.Job job;
 
   final bool showApplyButton;
 
@@ -225,7 +257,7 @@ class JobDetailsViewViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i15.NavigationService {
+extension NavigatorStateExtension on _i16.NavigationService {
   Future<dynamic> navigateToHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -338,14 +370,17 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToRegistrationDetailsView([
+  Future<dynamic> navigateToRegistrationDetailsView({
+    _i13.Key? key,
+    _i14.Student? student,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.registrationDetailsView,
+        arguments: RegistrationDetailsViewArguments(key: key, student: student),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -354,7 +389,7 @@ extension NavigatorStateExtension on _i15.NavigationService {
 
   Future<dynamic> navigateToJobDetailsViewView({
     _i13.Key? key,
-    required _i14.Job job,
+    required _i15.Job job,
     required bool showApplyButton,
     int? routerId,
     bool preventDuplicates = true,
@@ -497,14 +532,17 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithRegistrationDetailsView([
+  Future<dynamic> replaceWithRegistrationDetailsView({
+    _i13.Key? key,
+    _i14.Student? student,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.registrationDetailsView,
+        arguments: RegistrationDetailsViewArguments(key: key, student: student),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -513,7 +551,7 @@ extension NavigatorStateExtension on _i15.NavigationService {
 
   Future<dynamic> replaceWithJobDetailsViewView({
     _i13.Key? key,
-    required _i14.Job job,
+    required _i15.Job job,
     required bool showApplyButton,
     int? routerId,
     bool preventDuplicates = true,

@@ -1,16 +1,22 @@
 import 'package:campus_ease/app/app.logger.dart';
+import 'package:campus_ease/models/Student.dart';
 import 'package:campus_ease/services/registration_service.dart';
+import 'package:campus_ease/services/upload_doc_service.dart';
 import 'package:campus_ease/ui/views/registration_details/registration_details_view.form.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 
 class RegistrationDetailsViewModel extends FormViewModel {
   String? selectedBranch;
-
+  final _uploadDocService = UploadDocService();
   var formKey = GlobalKey<FormState>();
   final _logger = getLogger("RegistrationDetailsViewModel");
   final _registrationService = RegistrationService();
+  final ImagePicker _picker = ImagePicker();
+  String? imageUrl;
+  bool imageProcessing = false;
 
   void updateBranch(String? newValue) {
     selectedBranch = newValue;
@@ -26,16 +32,13 @@ class RegistrationDetailsViewModel extends FormViewModel {
         setBusy(false);
         return;
       }
-      _logger.i('''
-                    Form is valid First Name: $firstNameValue
-                    Last Name: $lastNameValue
-                    Email: $collegeEmailValue
-                    Roll Number: $universityRollNumberValue
-                    Registration Number: $collegeRegistrationNumberValue
-                    SGPA: $sgpaValue
-                    Percentage: $percentageValue
-                    Branch: $selectedBranch 
-                ''');
+      if (imageUrl == null) {
+        Fluttertoast.showToast(msg: "Please upload an image");
+        setBusy(false);
+        return;
+      }
+      _logger.i(
+          ' Form is valid First Name: $firstNameValue Last Name: $lastNameValue Email: $collegeEmailValue Roll Number: $universityRollNumberValue Registration Number: $collegeRegistrationNumberValue SGPA: $sgpaValue Percentage: $percentageValue Branch: $selectedBranch Image Url: $imageUrl ');
       await _registrationService.upsertRegistrationDetails(
         firstName: firstNameValue!,
         lastName: lastNameValue!,
@@ -45,6 +48,7 @@ class RegistrationDetailsViewModel extends FormViewModel {
         sgpa: sgpaValue!,
         percentage: percentageValue!,
         branch: selectedBranch!,
+        imageUrl: imageUrl!,
       );
     } else {
       _logger.i("Form is invalid");
@@ -52,6 +56,47 @@ class RegistrationDetailsViewModel extends FormViewModel {
     }
     setBusy(false);
     return;
+  }
+
+  // this function is responsible for uploading the image to the storage
+  Future<void> getImage() async {
+    try {
+      // picking up the image.
+      final image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image == null) {
+        Fluttertoast.showToast(msg: "No Image Selected");
+        return;
+      }
+      // getting the extension of the image
+      final imageExtension = image.path.split('.').last;
+
+      // this will return the path of the image.
+      String imagePath =
+          await _uploadDocService.uploadImage(image, imageExtension);
+
+      // this will return the url of the image
+      imageUrl = _uploadDocService.getImageUrl(imagePath);
+      rebuildUi();
+    } catch (e) {
+      _logger.e(e);
+      Fluttertoast.showToast(msg: "Error in uploading image. Please try again");
+      rebuildUi();
+    }
+  }
+
+  void init({Student? student}) {
+    if (student != null) {
+      firstNameValue = student.firstName;
+      lastNameValue = student.lastName;
+      collegeEmailValue = student.email;
+      universityRollNumberValue = student.rollNumber;
+      collegeRegistrationNumberValue = student.collegeRegistrationNumber;
+      sgpaValue = student.sgpa;
+      percentageValue = student.percentage;
+      // selectedBranch = student.branch;
+      imageUrl = student.imageUrl;
+    }
+    rebuildUi();
   }
 }
 

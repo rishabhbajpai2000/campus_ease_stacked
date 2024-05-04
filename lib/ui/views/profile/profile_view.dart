@@ -1,4 +1,5 @@
 import 'package:campus_ease/app/app.router.dart';
+import 'package:campus_ease/models/Student.dart';
 import 'package:campus_ease/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -49,13 +50,21 @@ class ProfileView extends StackedView<ProfileViewModel> {
             CircleAvatar(
               backgroundColor: Colors.grey.shade100,
               radius: 70,
-              child: Image.asset(
-                viewModel.student?.imageUrl ?? "assets/profile.png",
-                fit: BoxFit.fitHeight,
-              ),
+              child: viewModel.student?.imageUrl == null
+                  ? Image.asset(
+                      "assets/profile.png",
+                      fit: BoxFit.fitHeight,
+                    )
+                  : Image.network(
+                      viewModel.student!.imageUrl!,
+                      fit: BoxFit.fitHeight,
+                    ),
             ),
             verticalSpaceMedium,
-            const Center(child: EditProfileButton()),
+            Center(
+                child: EditProfileButton(
+              student: viewModel.student,
+            )),
             verticalSpaceMedium,
             ProfileDetailsRow(
               title: "Name",
@@ -97,13 +106,14 @@ class ProfileView extends StackedView<ProfileViewModel> {
 class EditProfileButton extends StatelessWidget {
   const EditProfileButton({
     super.key,
+    this.student,
   });
-
+  final Student? student;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        NavigationService().navigateTo(Routes.registrationDetailsView);
+        NavigationService().navigateToRegistrationDetailsView(student: student);
       },
       child: Container(
         decoration: BoxDecoration(

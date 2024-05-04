@@ -19,20 +19,22 @@ class RegistrationService {
       required String collegeRegistrationNumber,
       required String sgpa,
       required String percentage,
-      required String branch}) async {
+      required String branch,
+      required String imageUrl}) async {
     String branchCode = getBranchCode(branch);
     String userId = user.id;
     int status = await _apiCallService.upsertRegistrationDetails(
-        firstName: firstName,
-        lastName: lastName,
-        collegeEmail: collegeEmail,
-        universityRollNumber: universityRollNumber,
-        collegeRegistrationNumber: collegeRegistrationNumber,
-        sgpa: sgpa,
-        percentage: percentage,
-        branch: branchCode,
-        userId: userId, 
-        );
+      firstName: firstName,
+      lastName: lastName,
+      collegeEmail: collegeEmail,
+      universityRollNumber: universityRollNumber,
+      collegeRegistrationNumber: collegeRegistrationNumber,
+      sgpa: sgpa,
+      percentage: percentage,
+      branch: branchCode,
+      userId: userId,
+      imageUrl: imageUrl,
+    );
 
     if (status == 200) {
       Fluttertoast.showToast(

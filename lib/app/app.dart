@@ -17,6 +17,7 @@ import 'package:campus_ease/services/api_calls_service.dart';
 import 'package:campus_ease/services/jobs_service.dart';
 import 'package:campus_ease/ui/views/job_details_view/job_details_view_view.dart';
 import 'package:campus_ease/ui/views/applied_jobs/applied_jobs_view.dart';
+import 'package:campus_ease/services/upload_doc_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -43,6 +44,7 @@ import 'package:campus_ease/ui/views/applied_jobs/applied_jobs_view.dart';
     LazySingleton(classType: RegistrationService),
     LazySingleton(classType: ApiCallsService),
     LazySingleton(classType: JobsService),
+    LazySingleton(classType: UploadDocService),
 // @stacked-service
   ],
   bottomsheets: [

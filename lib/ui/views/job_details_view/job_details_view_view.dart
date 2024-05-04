@@ -103,7 +103,7 @@ class JobDetailsViewView extends StackedView<JobDetailsViewViewModel> {
               content: job.regLink,
               link: true,
             ),
-            // TODO: add a button to see the job Description 
+            // TODO: add a button to see the job Description
             verticalSpaceMedium,
             showApplyButton
                 ? Row(

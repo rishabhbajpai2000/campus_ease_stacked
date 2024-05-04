@@ -22,6 +22,7 @@ class ProfileViewModel extends BaseViewModel {
           branch: "Error Fetching Details",
           sgpa: "Error Fetching Details",
           percentage: "Error Fetching Details",
+          collegeRegistrationNumber: "Error Fetching Details",
           imageUrl: null);
     }
     rebuildUi();

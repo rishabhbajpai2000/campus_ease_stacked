@@ -21,7 +21,8 @@ class ApiCallsService {
       required String sgpa,
       required String percentage,
       required String branch,
-      required String userId}) async {
+      required String userId,
+      required String imageUrl}) async {
     // making an api call to fill the data to the server.
     Map<String, dynamic> body = {
       "userId": userId,
@@ -33,6 +34,7 @@ class ApiCallsService {
       "branch": branch,
       "sgpa": sgpa,
       "percentage": percentage,
+      "imageUrl": imageUrl,
       // "tokenID": Null // TODO: Implment oneSignal token ID
     };
 

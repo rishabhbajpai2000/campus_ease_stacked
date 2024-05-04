@@ -12,6 +12,7 @@ import 'package:campus_ease/services/JobData.dart' as _i5;
 import 'package:campus_ease/services/jobs_service.dart' as _i14;
 import 'package:campus_ease/services/login_service.dart' as _i11;
 import 'package:campus_ease/services/registration_service.dart' as _i12;
+import 'package:campus_ease/services/upload_doc_service.dart' as _i15;
 import 'package:flutter/material.dart' as _i8;
 import 'package:logger/src/logger.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -893,6 +894,7 @@ class MockRegistrationService extends _i1.Mock
     required String? sgpa,
     required String? percentage,
     required String? branch,
+    required String? imageUrl,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -907,6 +909,7 @@ class MockRegistrationService extends _i1.Mock
             #sgpa: sgpa,
             #percentage: percentage,
             #branch: branch,
+            #imageUrl: imageUrl,
           },
         ),
         returnValue: _i9.Future<void>.value(),
@@ -974,6 +977,7 @@ class MockApiCallsService extends _i1.Mock implements _i13.ApiCallsService {
     required String? percentage,
     required String? branch,
     required String? userId,
+    required String? imageUrl,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -989,6 +993,7 @@ class MockApiCallsService extends _i1.Mock implements _i13.ApiCallsService {
             #percentage: percentage,
             #branch: branch,
             #userId: userId,
+            #imageUrl: imageUrl,
           },
         ),
         returnValue: _i9.Future<int>.value(0),
@@ -1116,4 +1121,80 @@ class MockJobsService extends _i1.Mock implements _i14.JobsService {
           ),
         )),
       ) as _i9.Future<_i5.JobData>);
+}
+
+/// A class which mocks [UploadDocService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockUploadDocService extends _i1.Mock implements _i15.UploadDocService {
+  @override
+  _i2.User get user => (super.noSuchMethod(
+        Invocation.getter(#user),
+        returnValue: _FakeUser_3(
+          this,
+          Invocation.getter(#user),
+        ),
+        returnValueForMissingStub: _FakeUser_3(
+          this,
+          Invocation.getter(#user),
+        ),
+      ) as _i2.User);
+
+  @override
+  _i2.SupabaseClient get supabase => (super.noSuchMethod(
+        Invocation.getter(#supabase),
+        returnValue: _FakeSupabaseClient_0(
+          this,
+          Invocation.getter(#supabase),
+        ),
+        returnValueForMissingStub: _FakeSupabaseClient_0(
+          this,
+          Invocation.getter(#supabase),
+        ),
+      ) as _i2.SupabaseClient);
+
+  @override
+  _i9.Future<String> uploadImage(
+    dynamic image,
+    String? imageExtension,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #uploadImage,
+          [
+            image,
+            imageExtension,
+          ],
+        ),
+        returnValue: _i9.Future<String>.value(_i7.dummyValue<String>(
+          this,
+          Invocation.method(
+            #uploadImage,
+            [
+              image,
+              imageExtension,
+            ],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i9.Future<String>.value(_i7.dummyValue<String>(
+          this,
+          Invocation.method(
+            #uploadImage,
+            [
+              image,
+              imageExtension,
+            ],
+          ),
+        )),
+      ) as _i9.Future<String>);
+
+  @override
+  String? getImageUrl(String? imagePath) => (super.noSuchMethod(
+        Invocation.method(
+          #getImageUrl,
+          [imagePath],
+        ),
+        returnValueForMissingStub: null,
+      ) as String?);
 }
