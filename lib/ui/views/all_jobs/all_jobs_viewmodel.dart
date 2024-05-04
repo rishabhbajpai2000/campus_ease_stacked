@@ -25,7 +25,7 @@ class AllJobsViewModel extends BaseViewModel {
     bool registrationStatus = await checkRegistration();
 
     if (registrationStatus) {
-      Fluttertoast.showToast(msg: "You are registered");
+      // Fluttertoast.showToast(msg: "You are registered");
       await getJobsAndAnalytics();
     } else {
       Fluttertoast.showToast(msg: "Please register first");

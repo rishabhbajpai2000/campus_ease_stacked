@@ -11,7 +11,6 @@ class RegistrationDetailsViewModel extends FormViewModel {
   var formKey = GlobalKey<FormState>();
   final _logger = getLogger("RegistrationDetailsViewModel");
   final _registrationService = RegistrationService();
-  void skipRegistration() {}
 
   void updateBranch(String? newValue) {
     selectedBranch = newValue;
@@ -19,10 +18,12 @@ class RegistrationDetailsViewModel extends FormViewModel {
   }
 
   Future<void> submit() async {
+    setBusy(true);
     if (formKey.currentState!.validate()) {
       // branch check is required because it is not a form field
       if (selectedBranch == null) {
         Fluttertoast.showToast(msg: "Please select a branch");
+        setBusy(false);
         return;
       }
       _logger.i('''
@@ -49,6 +50,8 @@ class RegistrationDetailsViewModel extends FormViewModel {
       _logger.i("Form is invalid");
       Fluttertoast.showToast(msg: "Please fill all the fields");
     }
+    setBusy(false);
+    return;
   }
 }
 

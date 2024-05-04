@@ -14,7 +14,7 @@ class StartupViewModel extends BaseViewModel {
   final _logger = getLogger("StartupViewModel");
   Future runStartupLogic() async {
     await Future.delayed(const Duration(seconds: 3));
-
+    // TODO: call that empty api here as well as in ccpd application.
     bool hasLoggedInUser = await _loginService.isLoggedIn();
     _logger.i("hasLoggedInUser: $hasLoggedInUser");
     hasLoggedInUser

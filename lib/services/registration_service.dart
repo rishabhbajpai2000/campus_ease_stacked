@@ -31,7 +31,8 @@ class RegistrationService {
         sgpa: sgpa,
         percentage: percentage,
         branch: branchCode,
-        userId: userId);
+        userId: userId, 
+        );
 
     if (status == 200) {
       Fluttertoast.showToast(

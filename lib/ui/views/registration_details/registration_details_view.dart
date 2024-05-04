@@ -39,15 +39,7 @@ class RegistrationDetailsView extends StackedView<RegistrationDetailsViewModel>
   ) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("Registration Details"),
-        actions: [
-          TextButton(
-              onPressed: () {
-                viewModel.skipRegistration();
-              },
-              child: Text("Skip for Now"))
-        ],
+        title: const Text("Registration Details"),
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SingleChildScrollView(
@@ -58,75 +50,75 @@ class RegistrationDetailsView extends StackedView<RegistrationDetailsViewModel>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("First Name"),
+                const Text("First Name"),
                 TextFormField(
                   controller: firstNameController,
                   validator: RegistrationDetailsValidators.validateFirstName,
-                  decoration: InputDecoration(),
+                  decoration: const InputDecoration(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text("Last Name"),
+                const Text("Last Name"),
                 TextFormField(
                   controller: lastNameController,
                   validator: RegistrationDetailsValidators.validateLastName,
-                  decoration: InputDecoration(),
+                  decoration: const InputDecoration(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text("College Email"),
+                const Text("College Email"),
                 TextFormField(
                   controller: collegeEmailController,
                   validator: RegistrationDetailsValidators.validateEmail,
-                  decoration: InputDecoration(),
+                  decoration: const InputDecoration(),
                   keyboardType: TextInputType.emailAddress,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text("University Roll Number"),
+                const Text("University Roll Number"),
                 TextFormField(
                   controller: universityRollNumberController,
                   validator: RegistrationDetailsValidators.validateRollNumber,
-                  decoration: InputDecoration(),
+                  decoration: const InputDecoration(),
                   keyboardType: TextInputType.phone,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text("College Registration Number"),
+                const Text("College Registration Number"),
                 TextFormField(
                   controller: collegeRegistrationNumberController,
                   validator:
                       RegistrationDetailsValidators.validateRegistrationNumber,
-                  decoration: InputDecoration(),
+                  decoration: const InputDecoration(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text("SGPA(Latest)"),
+                const Text("SGPA(Latest)"),
                 TextFormField(
                   controller: sgpaController,
                   validator: RegistrationDetailsValidators.validateSGPA,
-                  decoration: InputDecoration(),
+                  decoration: const InputDecoration(),
                   keyboardType: TextInputType.number,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text("Percentage(Latest)"),
+                const Text("Percentage(Latest)"),
                 TextFormField(
                   controller: percentageController,
                   validator: RegistrationDetailsValidators.validatePercentage,
-                  decoration: InputDecoration(),
+                  decoration: const InputDecoration(),
                   keyboardType: TextInputType.number,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text("Branch"),
+                const Text("Branch"),
                 DropdownButton<String>(
                   value: viewModel.selectedBranch,
                   onChanged: (String? newValue) {
@@ -146,7 +138,7 @@ class RegistrationDetailsView extends StackedView<RegistrationDetailsViewModel>
                     );
                   }).toList(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
@@ -158,11 +150,13 @@ class RegistrationDetailsView extends StackedView<RegistrationDetailsViewModel>
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                            color: Color(0XFF8e97fd),
+                            color: const Color(0XFF8e97fd),
                             borderRadius: BorderRadius.circular(10)),
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                          child: Text("Submit"),
+                          padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                          child: Text(viewModel.isBusy
+                              ? "Submitting..."
+                              : "Submit Details"),
                         ),
                       ),
                     ),

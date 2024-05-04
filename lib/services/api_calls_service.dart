@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:campus_ease/app/app.logger.dart';
 import 'package:campus_ease/links/a_p_i.dart';
 import 'package:campus_ease/models/Job.dart';
+import 'package:campus_ease/models/Student.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import "package:http/http.dart" as http;
 import 'package:http/http.dart';
@@ -9,6 +10,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ApiCallsService {
   final _logger = getLogger("ApiCallsService");
+  final userId = Supabase.instance.client.auth.currentUser!.id;
 
   Future<int> upsertRegistrationDetails(
       {required String firstName,
@@ -77,7 +79,6 @@ class ApiCallsService {
 
     if (response.statusCode == 200) {
       _logger.i("Jobs successfully fetched from the server");
-      _logger.i(response.body);
       return response.body;
     } else {
       _logger.e("Error fetching jobs from the server");
@@ -109,7 +110,6 @@ class ApiCallsService {
   }
 
   Future<int> applyForJob({required int jobId}) async {
-    final userId = Supabase.instance.client.auth.currentUser!.id;
     Map<String, dynamic> body = {
       "userId": userId,
       "jobId": jobId,
@@ -130,5 +130,21 @@ class ApiCallsService {
     return response.statusCode;
   }
 
+  Future<Student> getStudentDetails() async {
+    final response = await http.get(
+      Uri.parse("$studentsRegistrationDetailsApi/$userId"),
+    );
 
+    if (response.statusCode == 200) {
+      _logger.i("Student details successfully fetched from the server");
+      _logger.i(response.body);
+      Student student = Student.fromJson(jsonDecode(response.body));
+      return student;
+    } else {
+      _logger.e("Error fetching student details from the server");
+      _logger.e(response.body);
+      throw Fluttertoast.showToast(
+          msg: "Error fetching student details from the server");
+    }
+  }
 }

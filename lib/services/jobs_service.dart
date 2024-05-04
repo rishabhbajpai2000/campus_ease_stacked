@@ -21,7 +21,6 @@ class JobsService {
       return JobData(filled: [], unfilled: []);
     } else {
       JobData jobData = JobData.fromJson(jsonDecode(responseBody));
-      jobData.printData();
       return jobData;
     }
   }

@@ -57,7 +57,7 @@ class HomeView extends StackedView<HomeViewModel> {
                   height: 30,
                   width: 25,
                   child: Image.asset(
-                    "assets/notifications.png",
+                    "assets/profile.png",
                   ),
                 ),
                 label: "Profile"),
