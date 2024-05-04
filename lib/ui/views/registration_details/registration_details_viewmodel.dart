@@ -90,10 +90,9 @@ class RegistrationDetailsViewModel extends FormViewModel {
       lastNameValue = student.lastName;
       collegeEmailValue = student.email;
       universityRollNumberValue = student.rollNumber;
-      collegeRegistrationNumberValue = student.collegeRegistrationNumber;
+      collegeRegistrationNumberValue = student.collegeAdmissionNumber;
       sgpaValue = student.sgpa;
       percentageValue = student.percentage;
-      // selectedBranch = student.branch;
       imageUrl = student.imageUrl;
     }
     rebuildUi();

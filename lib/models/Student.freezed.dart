@@ -30,8 +30,6 @@ mixin _$Student {
   String get sgpa => throw _privateConstructorUsedError;
   String get percentage => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
-  @JsonKey(defaultValue: "12345")
-  String get collegeRegistrationNumber => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,8 +51,7 @@ abstract class $StudentCopyWith<$Res> {
       String branch,
       String sgpa,
       String percentage,
-      String? imageUrl,
-      @JsonKey(defaultValue: "12345") String collegeRegistrationNumber});
+      String? imageUrl});
 }
 
 /// @nodoc
@@ -80,7 +77,6 @@ class _$StudentCopyWithImpl<$Res, $Val extends Student>
     Object? sgpa = null,
     Object? percentage = null,
     Object? imageUrl = freezed,
-    Object? collegeRegistrationNumber = null,
   }) {
     return _then(_value.copyWith(
       userId: null == userId
@@ -123,10 +119,6 @@ class _$StudentCopyWithImpl<$Res, $Val extends Student>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      collegeRegistrationNumber: null == collegeRegistrationNumber
-          ? _value.collegeRegistrationNumber
-          : collegeRegistrationNumber // ignore: cast_nullable_to_non_nullable
-              as String,
     ) as $Val);
   }
 }
@@ -148,8 +140,7 @@ abstract class _$$StudentImplCopyWith<$Res> implements $StudentCopyWith<$Res> {
       String branch,
       String sgpa,
       String percentage,
-      String? imageUrl,
-      @JsonKey(defaultValue: "12345") String collegeRegistrationNumber});
+      String? imageUrl});
 }
 
 /// @nodoc
@@ -173,7 +164,6 @@ class __$$StudentImplCopyWithImpl<$Res>
     Object? sgpa = null,
     Object? percentage = null,
     Object? imageUrl = freezed,
-    Object? collegeRegistrationNumber = null,
   }) {
     return _then(_$StudentImpl(
       userId: null == userId
@@ -216,10 +206,6 @@ class __$$StudentImplCopyWithImpl<$Res>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      collegeRegistrationNumber: null == collegeRegistrationNumber
-          ? _value.collegeRegistrationNumber
-          : collegeRegistrationNumber // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -237,8 +223,7 @@ class _$StudentImpl extends _Student {
       required this.branch,
       required this.sgpa,
       required this.percentage,
-      required this.imageUrl,
-      @JsonKey(defaultValue: "12345") required this.collegeRegistrationNumber})
+      required this.imageUrl})
       : super._();
 
   factory _$StudentImpl.fromJson(Map<String, dynamic> json) =>
@@ -264,13 +249,10 @@ class _$StudentImpl extends _Student {
   final String percentage;
   @override
   final String? imageUrl;
-  @override
-  @JsonKey(defaultValue: "12345")
-  final String collegeRegistrationNumber;
 
   @override
   String toString() {
-    return 'Student(userId: $userId, firstName: $firstName, lastName: $lastName, rollNumber: $rollNumber, collegeAdmissionNumber: $collegeAdmissionNumber, email: $email, branch: $branch, sgpa: $sgpa, percentage: $percentage, imageUrl: $imageUrl, collegeRegistrationNumber: $collegeRegistrationNumber)';
+    return 'Student(userId: $userId, firstName: $firstName, lastName: $lastName, rollNumber: $rollNumber, collegeAdmissionNumber: $collegeAdmissionNumber, email: $email, branch: $branch, sgpa: $sgpa, percentage: $percentage, imageUrl: $imageUrl)';
   }
 
   @override
@@ -293,10 +275,7 @@ class _$StudentImpl extends _Student {
             (identical(other.percentage, percentage) ||
                 other.percentage == percentage) &&
             (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
-            (identical(other.collegeRegistrationNumber,
-                    collegeRegistrationNumber) ||
-                other.collegeRegistrationNumber == collegeRegistrationNumber));
+                other.imageUrl == imageUrl));
   }
 
   @JsonKey(ignore: true)
@@ -312,8 +291,7 @@ class _$StudentImpl extends _Student {
       branch,
       sgpa,
       percentage,
-      imageUrl,
-      collegeRegistrationNumber);
+      imageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -340,9 +318,7 @@ abstract class _Student extends Student {
       required final String branch,
       required final String sgpa,
       required final String percentage,
-      required final String? imageUrl,
-      @JsonKey(defaultValue: "12345")
-      required final String collegeRegistrationNumber}) = _$StudentImpl;
+      required final String? imageUrl}) = _$StudentImpl;
   const _Student._() : super._();
 
   factory _Student.fromJson(Map<String, dynamic> json) = _$StudentImpl.fromJson;
@@ -367,9 +343,6 @@ abstract class _Student extends Student {
   String get percentage;
   @override
   String? get imageUrl;
-  @override
-  @JsonKey(defaultValue: "12345")
-  String get collegeRegistrationNumber;
   @override
   @JsonKey(ignore: true)
   _$$StudentImplCopyWith<_$StudentImpl> get copyWith =>
