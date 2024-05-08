@@ -6,3 +6,4 @@ String applyForJobAPI = "https://campus-ease.onrender.com/jobs/submit";
 
 String studentsRegistrationDetailsApi =
     "https://campus-ease.onrender.com/students";
+String jobDetailsFromIdAPI = "https://campus-ease.onrender.com/students/jobs/info?";

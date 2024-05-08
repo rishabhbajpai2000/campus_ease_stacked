@@ -149,4 +149,22 @@ class ApiCallsService {
           msg: "Error fetching student details from the server");
     }
   }
+
+  Future<Job> getJobDetails({required String jobId}) async {
+    final response = await http.get(
+      Uri.parse("${jobDetailsFromIdAPI}id=$jobId"),
+    );
+
+    if (response.statusCode == 200) {
+      _logger.i("Job details successfully fetched from the server");
+      _logger.i(response.body);
+      Job job = Job.fromJson(jsonDecode(response.body));
+      return job;
+    } else {
+      _logger.e("Error fetching job details from the server");
+      _logger.e(response.body);
+      throw Fluttertoast.showToast(
+          msg: "Error fetching job details from the server");
+    }
+  }
 }

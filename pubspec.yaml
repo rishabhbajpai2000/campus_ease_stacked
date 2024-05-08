@@ -17,6 +17,7 @@ dependencies:
   image_picker: ^1.1.1
   json_annotation: ^4.8.1
   loading_indicator: ^3.1.1
+  onesignal_flutter: ^5.1.6
   stacked: ^3.4.0
   stacked_services: ^1.1.0
   supabase_flutter: ^1.10.25

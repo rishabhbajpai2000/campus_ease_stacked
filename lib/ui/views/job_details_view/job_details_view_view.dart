@@ -94,7 +94,7 @@ class JobDetailsViewView extends StackedView<JobDetailsViewViewModel> {
               link: true,
             ),
             JobDescriptionSection(
-                heading: "Eligible Branches", content: job.branches),
+                heading: "Eligible Branches", content: job.printBranches()),
             JobDescriptionSection(heading: "Expected CTC", content: job.expCTC),
             JobDescriptionSection(
                 heading: "Registration End Date", content: job.endDate),

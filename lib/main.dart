@@ -3,11 +3,15 @@ import 'package:campus_ease/app/app.bottomsheets.dart';
 import 'package:campus_ease/app/app.dialogs.dart';
 import 'package:campus_ease/app/app.locator.dart';
 import 'package:campus_ease/app/app.router.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  OneSignal.initialize("1be38fba-04b1-4b93-a3c6-7656329481f3");
+  OneSignal.Notifications.requestPermission(true);
 
   await Supabase.initialize(
     url: 'https://wdwtkrvlzdvakzcmoukf.supabase.co',
