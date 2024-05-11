@@ -19,4 +19,6 @@ class JobDetailsViewViewModel extends BaseViewModel {
       Fluttertoast.showToast(msg: "Error applying for the job");
     }
   }
+
+
 }

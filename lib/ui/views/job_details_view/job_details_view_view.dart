@@ -1,9 +1,9 @@
-import 'package:campus_ease/links/a_p_i.dart';
 import 'package:campus_ease/models/Job.dart';
 import 'package:campus_ease/ui/common/ui_helpers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:stacked/stacked.dart';
 import "package:url_launcher/url_launcher.dart";
 
@@ -103,8 +103,9 @@ class JobDetailsViewView extends StackedView<JobDetailsViewViewModel> {
               content: job.regLink,
               link: true,
             ),
-            // TODO: add a button to see the job Description
-            verticalSpaceMedium,
+            const Text("View Job Description",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            SeeJobDescriptionSection(job: job),
             showApplyButton
                 ? Row(
                     children: [
@@ -138,6 +139,64 @@ class JobDetailsViewView extends StackedView<JobDetailsViewViewModel> {
     BuildContext context,
   ) =>
       JobDetailsViewViewModel();
+}
+
+class SeeJobDescriptionSection extends StatelessWidget {
+  const SeeJobDescriptionSection({
+    super.key,
+    required this.job,
+  });
+
+  final Job job;
+  String getRandomJDSize() {
+    // return a number between 100 and 300 for the job description size, needs to be an int
+
+    return (100 + (200 * (DateTime.now().millisecond / 1000)).toInt())
+        .toString();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        verticalSpaceSmall,
+        GestureDetector(
+          onTap: () async {
+            final Uri url = Uri.parse(job.file);
+            if (!await launchUrl(url)) {
+              Fluttertoast.showToast(msg: "Error opening the JD Link");
+              throw Exception('Could not launch $url');
+            }
+
+            ;
+          },
+          child: Container(
+            padding: const EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.book),
+                horizontalSpaceSmall,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("${job.companyName}  JD"),
+                    Text("${getRandomJDSize()} KB"),
+                    Text("Click to view", style: TextStyle(color: Colors.blue))
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+        verticalSpaceMedium,
+      ],
+    );
+  }
 }
 
 class JobDetailsPageButton extends StatelessWidget {
