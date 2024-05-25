@@ -1,5 +1,3 @@
-
-
 import 'package:campus_ease/app/app.logger.dart';
 import 'package:campus_ease/services/login_service.dart';
 import 'package:campus_ease/services/notification_service.dart';
@@ -21,8 +19,9 @@ class StartupViewModel extends BaseViewModel {
     _logger.i("hasLoggedInUser: $hasLoggedInUser");
 
     if (hasLoggedInUser) {
+      final userId = Supabase.instance.client.auth.currentUser!.id;
       final notificationService = NotificationService();
-      await notificationService.initOneSignal();
+      await notificationService.initOneSignal(userId: userId!);
       _navigationService.replaceWith(Routes.homeView);
     } else
       _navigationService.replaceWith(Routes.initialWelcomScreenView);

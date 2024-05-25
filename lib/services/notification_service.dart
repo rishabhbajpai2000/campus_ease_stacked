@@ -9,13 +9,13 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class NotificationService {
   final _logger = getLogger("NotificationService");
-  Future<void> initOneSignal() async {
+  Future<void> initOneSignal({required String userId}) async {
     //Remove this method to stop OneSignal Debugging
     OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
     OneSignal.initialize("1be38fba-04b1-4b93-a3c6-7656329481f3");
     OneSignal.Notifications.requestPermission(true);
-    final userId = Supabase.instance.client.auth.currentUser?.id;
-    await OneSignal.login(userId!);
+    await OneSignal.login(userId);
+    _logger.i("OneSignal initialized for user: $userId");
     notificationHandlers();
   }
 
